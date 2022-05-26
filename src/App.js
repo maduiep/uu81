@@ -15,6 +15,8 @@ import Bookings from './component/Dashboard/Bookings';
 import Payments from './component/Dashboard/Payments';
 import Profile from './component/Dashboard/Profile';
 import Event from './component/Event';
+import Users from './component/Users/Users';
+import User from './component/Users/User';
 
 function App() {
   const {accessToken} = useSelector((state) =>  state.auth);
@@ -40,8 +42,11 @@ function App() {
         <Route path='dashboard' element={<DashLayout/>}>
           <Route path="dashboard" element={<DashHome/>} />
           <Route path="bookings" element={<Bookings/>} />
+          <Route path="bookings/:id" element={<Bookings/>} />
           <Route path="payments" element={<Payments/>} />
           <Route path="payments" element={<Profile/>} />
+          <Route path="users" element={<Users/>} />
+          <Route path="users/:id" element={<User/>} />
         </Route>
     </Routes>
   );
