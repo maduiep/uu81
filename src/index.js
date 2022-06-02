@@ -12,13 +12,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );
 
 

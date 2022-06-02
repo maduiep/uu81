@@ -21,14 +21,14 @@ const Register = () => {
 
   return (
       <>
-         <div>Register</div>
+         {/* <div>Register</div>
          <form action="">
             <input type="text" value={email} placeholder='email'/> <br />
             <input type="password" value={phone_number} placeholder='phone number'/><br />
             <input type="password" value={password} placeholder='password'/><br />
             <input type="password" value={confirmpwd} placeholder='password'/><br />
             <button type='submit'>Register</button>
-         </form>
+         </form> */}
       </>
   )
 }
