@@ -11,12 +11,22 @@
 }
 
 .navbar {
-    height: 20vh;
+    height: 80px;
     width: 100%;
-    background-color: #fff;
     margin-top: 0 !important;
+    transition: all .3s ease-in-out;
 }
+.navbar-transparent {
+    background-color:transparent;
+}
+.navbar-color {
+    background-color:#fff;
 
+}
+.fixed{
+    position: fixed !important;
+    top: 0;
+}
 .header {
     color: #fff;
     height: 30rem;
