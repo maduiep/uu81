@@ -11,10 +11,11 @@
 }
 
 .navbar {
-    height: 20vh;
+    height: 15vh;
     width: 100%;
     background-color: #fff;
     margin-top: 0 !important;
+    border-bottom: 1px solid gray;
 }
 
 .header {
