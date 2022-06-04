@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { getItems } from '../app/authSlice';
 import { axiosGet } from '../api/axios';
 import Layout from './Layout';
+import Event from './Event';
 
 const Home = () => {
     // const count = useSelector((state) => state.counter.value);
@@ -30,6 +31,7 @@ const Home = () => {
   return (
       <>
         <Preloader loading={isLoading}/>
+        <Event/>
       </>
   )
 }

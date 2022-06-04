@@ -8,14 +8,9 @@ const Layout = () => {
   return (
     <>
         <Navbar/>
-<<<<<<< HEAD
-          <Outlet/>
-        <Footer/>
-=======
         <Outlet/>
-        <Event />
+        {/* <Event /> */}
         <Footer />
->>>>>>> 51bca866ea069c08f5e066600f16355f581eaa72
     </>
     )
 }
