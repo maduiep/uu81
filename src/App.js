@@ -33,12 +33,14 @@ function App() {
 
   return (
     <Routes>
+      
         <Route path="/" element={<Layout />} >
           <Route path="/" element={<Home/>} />
           <Route path="/:id" element={<Event/>} />
           <Route path="register" element={<Register/>} />
           <Route path="login" element={<Login/>} />
         </Route>
+
         <Route path='dashboard' element={<DashLayout/>}>
           <Route path="dashboard" element={<DashHome/>} />
           <Route path="bookings" element={<Bookings/>} />

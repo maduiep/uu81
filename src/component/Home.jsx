@@ -30,7 +30,6 @@ const Home = () => {
   return (
       <>
         <Preloader loading={isLoading}/>
-        <Layout />
       </>
   )
 }
