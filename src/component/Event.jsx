@@ -2,6 +2,10 @@ import React from 'react'
 
 const Event = () => {
 
+  const btnColor = {
+    color: 'white'
+  }
+
   const lineStyle = {
     width: '7rem',
     height: '1px',
@@ -17,14 +21,20 @@ const Event = () => {
 
       </div>
       <div className="jumbotron">
-      <div class="card mb-3 w-53">
-        <img className='card-img-top' src="/assets/card-img.jpg" alt="" height="200"/>
-        <div className="card-body">
-          <h5 className="card-title">Yenagoa 2021 | 2 - 2021</h5>
-          <p className="card-text">Venue: Dr Goodluck Ebele Jonathan, Yenagoa | November 25 - November 28 | ₦0.00 | 120 spaces</p>
-          <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
+        <div class="card mb-3 w-53">
+          <img className='card-img-top' src="/assets/card-img.jpg" alt="" height="200"/>
+          <div className="card-body">
+            <h5 className="card-title">Yenagoa 2021 | 2 - 2021</h5>
+            <p className="card-text">Venue: Dr Goodluck Ebele Jonathan, Yenagoa | November 25 - November 28 | ₦0.00 | 120 spaces</p>
+            <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
+          </div>
         </div>
-      </div>
+
+        <div className="btn-wrapper d-flex justify-content-end align-items-end">
+          <button style={btnColor} type="button" class="btn btn-info btn-lg">
+            View Details
+          </button>
+        </div>
       </div>
       <div className="venue d-flex flex-column">
         <div className='line-holder d-flex justify-content-around align-items-center'>

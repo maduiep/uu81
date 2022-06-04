@@ -6,16 +6,28 @@
 }
 
 .brand {
-    color: #fff;
+    color: gray;
     cursor: pointer;
+}
+
+.navbar {
+    height: 20vh;
+    width: 100%;
+    background-color: #fff;
+    margin-top: 0 !important;
 }
 
 .header {
     color: #fff;
+    height: 30rem;
 }
 
 .header-main-text {
     margin-top: 4rem;
+}
+
+.btn-style {
+    color: gray;
 }
 
 .footer-wrapper {

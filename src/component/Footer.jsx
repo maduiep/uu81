@@ -15,7 +15,7 @@ const Footer = () => {
               <p> <span> <MdOutlineCall /></span>  0809 522 0213, 0803 305 3076</p>
               <p> <span> <AiOutlineMail /> </span>uu81set@gmail.com</p>
             </div>
-            <div className="icon-wrapper primary">
+            <div className="icon-wrapper">
               <p>UU81 Bye Laws</p>
               <p>Welfare Report</p>
               <div className="icons d-flex justify-content-around align-items-center">
