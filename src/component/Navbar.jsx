@@ -1,5 +1,5 @@
 import React,{ useState, useRef, useEffect } from 'react'
-
+import { Link } from 'react-router-dom'
 const Navbar = () => {
   
 const [navBackground, setNavBackground] = useState('navbar-transparent')
@@ -56,8 +56,7 @@ useEffect(() => {
               <p>For Enlightment And Self Reliance</p>
             </div>
           </div>
-          <div 
-            className="" id="navbarSupportedContent">
+          {/* <div className="" id="navbarSupportedContent">
             <form className="d-flex btn-style">
               <button type="button" class="btn btn-outline-primary btn-hover">
                <Link style={{textDecoration: 'none', listStyleType: 'none'}} to='/register'> Register</Link>
@@ -66,9 +65,9 @@ useEffect(() => {
               <Link style={{textDecoration: 'none', listStyleType: 'none'}} to='/login'> SignIn</Link>
               </button>
             </form>
-          </div>
+          </div> */}
+          </header>
         </div>
-      </nav>
     </>
   )
 }

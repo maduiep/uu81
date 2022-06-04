@@ -11,6 +11,7 @@ const Login = () => {
     const [password,setpassword] = useState();
 
     const dispatch = useDispatch()
+
     const Handlesubmit =  async (e) => {
         e.preventDefault();
         const payload = {
@@ -77,23 +78,28 @@ const Login = () => {
     // </div>
 
     <>
-        <div className="container">
-           <h3 className='mt-4'> Enter Credentials</h3>
-            <form className='d-flex justify-content-center flex-column mt-4'>
-                <div className="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+        <div className="container  my-5">
+            <div className=" row vh-100 justify-content-center">
+                <div className="card col-6 align-self-center">
+
+                    <h3 className='mt-4'> Enter Credentials</h3>
+                    <form className='d-flex justify-content-center flex-column mt-4'>
+                        <div className="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                        </div>
+                        &nbsp;
+                        <div className="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                        </div>
+                        &nbsp;
+                    
+                        <small id="emailHelp" class="form-text text-muted color">Forgot Password?</small>
+                        <button type="submit" className="btn btn-primary mt-4 mb-4">Submit</button>
+                    </form>
                 </div>
-                &nbsp;
-                <div className="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-                </div>
-                &nbsp;
-            
-                <small id="emailHelp" class="form-text text-muted color">Forgot Password?</small>
-                <button type="submit" className="btn btn-primary mt-4 mb-4">Submit</button>
-            </form>
+            </div>
         </div>
     </>
   )

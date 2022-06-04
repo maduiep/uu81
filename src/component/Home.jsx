@@ -1,24 +1,25 @@
 import {useEffect} from 'react'
 import Preloader from './Preloader';
 import { useSelector, useDispatch } from 'react-redux';
+import { axiosGet } from '../api/axios';
 // import { decrement, increment } from '../app/counterSlice';
 
 // import { toggle } from '../app/loader';
 // import { getItems } from '../app/authSlice';
-import { axiosGet } from '../api/axios';
-import Layout from './Layout';
+// import Layout from './Layout';
 import Event from './Event';
 
 const Home = () => {
     // const count = useSelector((state) => state.counter.value);
     // const loading = useSelector((state) => state.loading.value);
     const { isLoading} = useSelector((state)=> state.auth)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
 
     useEffect(()=>{
         GetEvents();
     },[])
+
     const GetEvents = async ()=>{
         
         const payload={
@@ -31,6 +32,7 @@ const Home = () => {
   return (
       <>
         <Preloader loading={isLoading}/>
+        <Event/>
       </>
   )
 }
