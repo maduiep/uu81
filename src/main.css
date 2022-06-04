@@ -50,3 +50,11 @@
 .icon-wrapper {
     color: #4183C4;
 }
+
+butto:hover {
+    color: #fff;
+}
+
+.color {
+    cursor: pointer;
+}

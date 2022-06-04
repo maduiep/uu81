@@ -56,8 +56,19 @@ useEffect(() => {
               <p>For Enlightment And Self Reliance</p>
             </div>
           </div>
-        </header>
-      </div>
+          <div 
+            className="" id="navbarSupportedContent">
+            <form className="d-flex btn-style">
+              <button type="button" class="btn btn-outline-primary btn-hover">
+               <Link style={{textDecoration: 'none', listStyleType: 'none'}} to='/register'> Register</Link>
+              </button>
+              <button type="button" class="btn btn-outline-primary ms-3 btn-hover">
+              <Link style={{textDecoration: 'none', listStyleType: 'none'}} to='/login'> SignIn</Link>
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
     </>
   )
 }

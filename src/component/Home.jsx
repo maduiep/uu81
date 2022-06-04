@@ -31,7 +31,6 @@ const Home = () => {
   return (
       <>
         <Preloader loading={isLoading}/>
-        <Event/>
       </>
   )
 }
