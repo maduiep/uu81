@@ -1,9 +1,10 @@
 import React from 'react'
+import Profile from './Profile'
 
 const DashHome = () => {
   return (
     <div className="container">
-      <h1>Hello Emeka</h1>
+      <Profile />
     </div>
   )
 }

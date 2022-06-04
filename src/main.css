@@ -16,17 +16,20 @@
     margin-top: 0 !important;
     transition: all .3s ease-in-out;
 }
-.navbar-transparent {
-    background-color:transparent;
-}
-.navbar-color {
-    background-color:#fff;
 
+.navbar-transparent {
+    background-color: transparent;
 }
-.fixed{
+
+.navbar-color {
+    background-color: #fff;
+}
+
+.fixed {
     position: fixed !important;
     top: 0;
 }
+
 .header {
     color: #fff;
     height: 30rem;
