@@ -1,7 +1,7 @@
-import React,{ useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
-  Routes,
-  Route,
+    Routes,
+    Route,
 } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from './app/authSlice';
@@ -19,39 +19,66 @@ import Users from './component/Users/Users';
 import User from './component/Users/User';
 
 function App() {
-  const {accessToken} = useSelector((state) =>  state.auth);
-  const dispatch =  useDispatch();
-  
-  useEffect(()=>{
-    if(accessToken !== undefined){
-      dispatch(authActions.logIn());
-    }else{
-      dispatch(authActions.logOut());
-    }
-    console.log(accessToken);
-  },[accessToken])
+    const { accessToken } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
-  return (
-    <Routes>
-      
-        <Route path="/" element={<Layout />} >
-          <Route path="/" element={<Home/>} />
-          <Route path="/:id" element={<Event/>} />
-          <Route path="register" element={<Register/>} />
-          <Route path="login" element={<Login/>} />
-        </Route>
+    useEffect(() => {
+        if (accessToken !== undefined) {
+            dispatch(authActions.logIn());
+        } else {
+            dispatch(authActions.logOut());
+        }
+        console.log(accessToken);
+    }, [accessToken])
 
-        <Route path='dashboard' element={<DashLayout/>}>
-          <Route path="dashboard" element={<DashHome/>} />
-          <Route path="bookings" element={<Bookings/>} />
-          <Route path="bookings/:id" element={<Bookings/>} />
-          <Route path="payments" element={<Payments/>} />
-          <Route path="payments" element={<Profile/>} />
-          <Route path="users" element={<Users/>} />
-          <Route path="users/:id" element={<User/>} />
-        </Route>
-    </Routes>
-  );
+    return ( <
+        Routes >
+        <
+        Route path = "/"
+        element = { < Layout / > } >
+        <
+        Route path = "/"
+        element = { < Home / > }
+        /> <
+        Route path = "/:id"
+        element = { < Event / > }
+        /> <
+        Route path = "register"
+        element = { < Register / > }
+        /> <
+        Route path = "login"
+        element = { < Login / > }
+        /> <
+        /Route>
+
+        <
+        Route path = 'dashboard'
+        element = { < DashLayout / > } >
+        <
+        Route path = "/dashboard"
+        element = { < DashHome / > }
+        /> <
+        Route path = "bookings"
+        element = { < Bookings / > }
+        /> <
+        Route path = "bookings/:id"
+        element = { < Bookings / > }
+        /> <
+        Route path = "payments"
+        element = { < Payments / > }
+        /> <
+        Route path = "payments"
+        element = { < Profile / > }
+        /> <
+        Route path = "users"
+        element = { < Users / > }
+        /> <
+        Route path = "users/:id"
+        element = { < User / > }
+        /> <
+        /Route> <
+        /Routes>
+    );
 }
 
 export default App;
