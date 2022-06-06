@@ -59,7 +59,26 @@ const Profile = () => {
             <div style={lineStyle}></div>
           </div>
 
-      
+          {/* file upload starts here */}
+          <div class="row d-flex justify-content-center mt-100">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header">
+                  <h5>File Upload</h5>
+                </div>
+                <div class="card-block">
+                  <form action="#" class="dropzone dz-clickable">
+                    <div class="dz-default dz-message">
+                      <span>Drop files here to upload</span>
+                    </div>
+                  </form>
+                  <div class="text-center m-t-20">
+                    <button class="btn btn-primary">Upload Now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
