@@ -1,11 +1,17 @@
 import React from 'react'
-import Profile from './Profile'
+
 
 const DashHome = () => {
   return (
     <div className="container">
-      <Profile />
+    <div className="profile-wrapper d-flex justify-content-center mt-4 mb-4">
+      <div className="profile d-flex align-items-center flex-column">
+        <img src="/assets/profile.jpg" alt="" />
+        <h3 className='mt-4'>Welcome, Nnaemeka Okafor</h3>
+        <p>6/4/2022 7:45:43 PM</p>
+      </div>
     </div>
+  </div>
   )
 }
 

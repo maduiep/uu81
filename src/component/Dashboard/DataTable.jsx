@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
-const columns: GridColDef[] = [
+const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'First name', width: 130 },
   { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'event', headerName: 'Event', width: 130 },
   {
     field: 'age',
     headerName: 'Age',
@@ -17,7 +18,7 @@ const columns: GridColDef[] = [
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
+    valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
 ];
@@ -34,7 +35,7 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export default function DataTable() {
+const DataTable =() => {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -47,3 +48,5 @@ export default function DataTable() {
     </div>
   );
 }
+
+export default DataTable

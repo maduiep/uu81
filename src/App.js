@@ -48,8 +48,8 @@ function App() {
         /> <
         Route path = "login"
         element = { < Login / > }
-        /> <
-        /Route>
+        /> < /
+        Route >
 
         <
         Route path = 'dashboard'
@@ -67,7 +67,7 @@ function App() {
         Route path = "payments"
         element = { < Payments / > }
         /> <
-        Route path = "payments"
+        Route path = "profile"
         element = { < Profile / > }
         /> <
         Route path = "users"
@@ -75,8 +75,8 @@ function App() {
         /> <
         Route path = "users/:id"
         element = { < User / > }
-        /> <
-        /Route> <
+        /> < /
+        Route > <
         /Routes>
     );
 }
