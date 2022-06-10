@@ -1,78 +1,76 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Event = () => {
+const Event = ({data}) => {
 
-  const btnColor = {
-    color: 'white'
-  }
+  // const btnColor = {
+  //   color: 'white'
+  // }
 
-  const lineStyle = {
-    width: '7rem',
-    height: '1px',
-    backgroundColor: 'gray'
-  }
+  // const lineStyle = {
+  //   width: '7rem',
+  //   height: '1px',
+  //   backgroundColor: 'gray'
+  // }
   return (
    <div className="container my-5">
-     <div className="row vh-100">
+     <div className="row min-vh-100">
        <div className="col">
           <div className="row gx-5">
-            <div className="col-md-2 date">
-              <h4>25</h4>
-              <span>Nov</span>
-              <hr width='50'/>
+              {
+                data && data.map((item,i)=>{
+                  return (
+                      <>
+                      {/* <div key={i} className="jumbotron mb-5">
+                        <div className="card mb-3 w-53">
+                          <img className='card-img-top' src="/assets/card-img.jpg" alt="" height="200"/>
+                          <div className="card-body">
+                            <h5 className="card-title">{item.Event.title}</h5>
+                            <p className="card-text">Venue: Dr Goodluck Ebele Jonathan, Yenagoa | November 25 - November 28 | ₦0.00 | 120 spaces</p>
+                            <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
+                          </div>
+                        </div>
 
-            </div>
-            <div className="col-md-6 jumbotron">
-              <div class="card mb-3 w-53">
-                <img className='card-img-top' src="/assets/card-img.jpg" alt="" height="200"/>
-                <div className="card-body">
-                  <h5 className="card-title">Yenagoa 2021 | 2 - 2021</h5>
-                  <p className="card-text">Venue: Dr Goodluck Ebele Jonathan, Yenagoa | November 25 - November 28 | ₦0.00 | 120 spaces</p>
-                  <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
-                </div>
-              </div>
-
-              <div className="btn-wrapper d-flex justify-content-end align-items-end">
-                <button style={btnColor} type="button" class="btn btn-info btn-lg">
-                  View Details
-                </button>
-              </div>
-            </div>
-            <div className="col-md-4 venue d-flex flex-column">
-              <div className='line-holder d-flex justify-content-around align-items-center'>
-                <div style={lineStyle}></div>
-                <h5>Venue</h5>
-                <div style={lineStyle}></div>
-              </div>
-
-              <div className="all-venue">
-                <h6>All Venues</h6>
-                <hr />
-                <h6>Dr Goodluck Ebele Jonathan, Yenagoa (1)</h6>
-                <hr />
-              </div>
-
-              <div className='line-holder d-flex justify-content-around align-items-center'>
-                <div style={lineStyle}></div>
-                <h6>Activities</h6>
-                <div style={lineStyle}></div>
-              </div>
-
-              <div className="all-venue">
-                <h6>All Activities</h6>
-                <hr />
-                <h6>Reunion(1)</h6>
-                <hr />
-                <h6>Workshop (1)</h6>
-                <hr />
-              </div>
-
-              <div className='line-holder d-flex justify-content-around align-items-center'>
-                <div style={lineStyle}></div>
-                <h6>FOLLOW US</h6>
-                <div style={lineStyle}></div>
-              </div>
-            </div>
+                        <div className="btn-wrapper d-flex justify-content-end align-items-end">
+                          <button style={btnColor} type="button" className="btn btn-info btn-lg">
+                            View Details
+                          </button>
+                        </div>
+                      </div> */}
+                      <div key={i} className="col-lg-4">
+                        <div className="card card-margin">
+                            <div className="card-header no-border">
+                                <h5 className="card-title">{item.Event.title}</h5>
+                            </div>
+                            <div className="card-body pt-0">
+                                <div className="widget-49">
+                                    <div className="widget-49-title-wrapper">
+                                        <div className="widget-49-date-primary">
+                                            <span className="widget-49-date-day">09</span>
+                                            <span className="widget-49-date-month">{new Date(item.Event.created_at).toLocaleString("en-US", { month: "short" })}</span>
+                                        </div>
+                                        <div className="widget-49-meeting-info">
+                                            <span className="widget-49-pro-title">PRO-08235 DeskOpe. Website</span>
+                                            <span className="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                                        </div>
+                                    </div>
+                                    {/* <ol className="widget-49-meeting-points">
+                                        <li className="widget-49-meeting-item"><span>Expand module is removed</span></li>
+                                        <li className="widget-49-meeting-item"><span>Data migration is in scope</span></li>
+                                        <li className="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
+                                    </ol> */}
+                                    <div className="widget-49-meeting-action">
+                                        <Link to={`/event/${item.Event.id}`} className="btn btn-sm btn-flash-border-primary">View</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      </>
+                    )
+                  }
+                )
+              }
           </div>
        </div>
      </div>

@@ -1,17 +1,8 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const BASE_URL = 'https://uu81.herokuapp.com';
 
-// export const instance = axios.create({
-//     baseURL: BASE_URL,
-//     timeout: 1000,
-//     headers: {
-//         'accept': 'application/json',
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//     },
-//     withCredentials: false,
-// });
 
 export const axiosGet  = axios.create({
     baseURL : BASE_URL,
@@ -36,12 +27,12 @@ export const axiosPost  = axios.create({
 axiosGet.interceptors.request.use(
     
     config => {
-        const { accessToken,isLogged } = useSelector((state)=> state.auth)
+        // const { accessToken,isLogged } = useSelector((state)=> state.auth)
         
-        const token = isLogged();
-        if (token) {
-            config.headers.common['Authorization'] = 'Bearer ' + accessToken;
-        }
+        // const token = isLogged();
+        // if (token) {
+        //     config.headers.common['Authorization'] = 'Bearer ' + accessToken;
+        // }
         return config;
   },
   error => {

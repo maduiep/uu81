@@ -1,8 +1,14 @@
 import React,{ useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux';
+import { logout } from '../app/authSlice';
 // import { Link } from 'react-router-dom'
 const Navbar = () => {
-  
+const dispatch = useDispatch();
+
 const [navBackground, setNavBackground] = useState('navbar-transparent')
+const { isLoggedIn, accessToken } = useSelector((state)=> state.auth)
+
 const navRef = useRef()
 
 navRef.current = navBackground
@@ -17,7 +23,9 @@ const handleScroll = () => {
       setNavBackground('navbar-transparent')
   }
 }
-
+const Handlelogout = ()=>{
+  dispatch(logout());
+}
 useEffect(() => {
     document.addEventListener('scroll', handleScroll)
 
@@ -37,12 +45,25 @@ useEffect(() => {
           <div 
             className="" id="navbarSupportedContent">
             <form className="d-flex btn-style">
-              <button type="button" class="btn btn-outline-primary">
-                Register
-              </button>
-              <button type="button" class="btn btn-outline-primary ms-3">
-                SignIn
-              </button>
+              {
+                isLoggedIn ?(
+                  <>
+                  <button onClick={Handlelogout} className="btn btn-outline-primary">
+                    Logout
+                  </button>
+                  </>
+                ):(
+                  <>
+                    <Link to={'/register'} className="btn btn-outline-primary">
+                      Register
+                    </Link>
+                    <Link to={'/login'} className="btn btn-outline-primary ms-3">
+                      SignIn
+                    </Link>
+                  </>
+                )
+              }
+              
             </form>
           </div>
         </div>
