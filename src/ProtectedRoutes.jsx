@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import Login from './component/Auth/Login';
+// import Login from './component/Auth/Login';
 import { useSelector } from 'react-redux';
-import ls from 'localstorage-slim';
+// import ls from 'localstorage-slim';
 import { Navigate } from "react-router-dom";
 
 const useAuth = () => {

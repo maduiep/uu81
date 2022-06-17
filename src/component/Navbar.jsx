@@ -7,7 +7,7 @@ const Navbar = () => {
 const dispatch = useDispatch();
 
 const [navBackground, setNavBackground] = useState('navbar-transparent')
-const { isLoggedIn, accessToken } = useSelector((state)=> state.auth)
+const { isLoggedIn } = useSelector((state)=> state.auth)
 
 const navRef = useRef()
 

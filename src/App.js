@@ -21,7 +21,7 @@ import ProtectedRoutes from './ProtectedRoutes';
 function App() {
     const dispatch = useDispatch();
 
-    const { isLoggedIn, accessToken } = useSelector((state)=> state.auth)
+    const { isLoggedIn } = useSelector((state)=> state.auth)
     
     ls.config.encrypt = true;
     

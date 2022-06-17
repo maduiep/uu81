@@ -1,5 +1,5 @@
 import React from 'react'
-import DataTable from '../DataTable'
+// import DataTable from '../DataTable'
 import { Grid } from '@material-ui/core';
 import { Box, Typography } from '@mui/material';
 import BokkingTable from './bookingTable';

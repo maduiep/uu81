@@ -12,7 +12,7 @@ const Register = () => {
   const [lastname, setlastname] = useState();
   const [phone, setphone] = useState();
 
-    const { isLoggedIn, userRegistered } = useSelector((state)=> state.auth)
+    const { userRegistered } = useSelector((state)=> state.auth)
 
   const HandleSubmit = (e)=>{
     
