@@ -7,9 +7,9 @@ import Home from './component/Home';
 import Register from './component/Auth/Register';
 import Login from './component/Auth/Login';
 import Layout from './component/Layout';
-import DashLayout from './component/Dashboard/DashLayout';
+import DashLayout from './component/layouts/DashLayout'
 import DashHome from './component/Dashboard/DashHome';
-import Bookings from './component/Dashboard/Bookings';
+import Bookings from './component/Dashboard/Bookings/Bookings';
 import Payments from './component/Dashboard/Payments';
 import Profile from './component/Dashboard/Profile';
 // import Event from './component/Event';

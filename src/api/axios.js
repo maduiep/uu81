@@ -1,5 +1,6 @@
 import axios from "axios";
 // import { useSelector } from "react-redux";
+import ls from 'localstorage-slim';
 
 const BASE_URL = 'https://uu81.herokuapp.com';
 
@@ -27,12 +28,8 @@ export const axiosPost  = axios.create({
 axiosGet.interceptors.request.use(
     
     config => {
-        // const { accessToken,isLogged } = useSelector((state)=> state.auth)
-        
-        // const token = isLogged();
-        // if (token) {
-        //     config.headers.common['Authorization'] = 'Bearer ' + accessToken;
-        // }
+        const accessToken = ls.get('token').token
+        config.headers.common['Authorization'] = 'Bearer ' + accessToken;
         return config;
   },
   error => {

@@ -4,8 +4,10 @@ import ls from 'localstorage-slim';
 
 // import axiosPost from '../api/axios';
 // import { axiosPost } from "../api/axios";
+import { axiosGet } from "../api/axios";
 import qs from 'qs';
-// import Register from './../component/Register';
+import jwt_decode from "jwt-decode";
+
 
 const url = 'https://uu81.herokuapp.com';
 
@@ -20,7 +22,9 @@ const initialState = {
     isLoading: false,
     accessToken:'',
     accessType:'',
-    user:'',
+    user:[],
+    userId:'',
+    isAdmin:false,
     userRegistered:false
 }
 export const Login = createAsyncThunk('login',async (payload)=>{
@@ -35,6 +39,15 @@ export const Login = createAsyncThunk('login',async (payload)=>{
                 data: qs.stringify(payload),
                 url:'/login',
         });
+        return response.data;
+    } catch (error) {
+        return console.log(error);
+    }
+})
+
+export const GetUser = createAsyncThunk('user',async (payload)=>{
+    try {
+        const response = await axiosGet.get(`/users/${payload}`);
         return response.data;
     } catch (error) {
         return console.log(error);
@@ -69,6 +82,7 @@ export const authSlice = createSlice({
             if(ls.get('token').isloggedin){
                 state.token = ls.get('token').token
                 state.isLoggedIn = true
+                state.userId = ls.get('token').userId
             }
         },
         logout:(state)=>{
@@ -84,16 +98,21 @@ export const authSlice = createSlice({
         },
         [Login.fulfilled]: (state, action) => {
             console.log('fulfiled', action.payload.access_token);
+            
             state.isLoading = false;
-
+            
             state.items = action.payload.data;
             state.accessToken = action.payload.access_token;
+            var decoded = jwt_decode(state.accessToken);
+            state.userId = decoded.user_id;
             state.accessType = action.payload.token_type;
             state.isLoggedIn = true;
-
+            
+            console.log(decoded);
             ls.set('token',{
                 isloggedin:state.isLoggedIn,
-                token:state.accessToken
+                token:state.accessToken,
+                userId:state.userId
             })
             
         },
@@ -111,6 +130,19 @@ export const authSlice = createSlice({
             state.isLoading = false;
         },
         [Register.rejected]: (state,action) => {
+            state.isLoading = false;
+            state.userRegistered = false
+            console.log(action);
+        },
+        [GetUser.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [GetUser.fulfilled]: (state, action) => {
+            console.log('fulfiled', action);
+            state.user = action.payload
+            state.isLoading = false;
+        },
+        [GetUser.rejected]: (state,action) => {
             state.isLoading = false;
             state.userRegistered = false
             console.log(action);
