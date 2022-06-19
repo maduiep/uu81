@@ -18,5 +18,5 @@ const ProtectedRoutes = () => {
     const isAuth = useAuth();
     return  isAuth ? <Outlet/> : <Navigate to="/login" replace={true} />
 }
-
+// protected routes
 export default ProtectedRoutes
