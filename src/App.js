@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import {  Navigate, Route, Routes } from 'react-router-dom'
 
@@ -48,6 +49,7 @@ function App() {
           <Navigate to='/dashboard'/>
         }
       },[isLoggedIn])
+      
     return ( 
         <Routes>
             <Route path = "/" element = { < Layout /> } >

@@ -11,7 +11,7 @@ import { axiosGet } from '../api/axios';
 import Event from './Event';
 
 const Home = () => {
-    const [events,setEvents]= useState([]);
+    const [events, setEvents]= useState([]);
     // const count = useSelector((state) => state.counter.value);
     // const loading = useSelector((state) => state.loading.value);
     const { isLoading} = useSelector((state)=> state.auth)
@@ -30,6 +30,7 @@ const Home = () => {
         setEvents(resData);
         console.log(resData);
     }
+
     useEffect(()=>{
         GetEvents();
     },[])

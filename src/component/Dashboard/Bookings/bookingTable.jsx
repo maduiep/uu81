@@ -1,7 +1,7 @@
+import { useState, useEffect } from "react";
 import { IconButton, Menu, MenuItem, ListItemIcon, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useState } from "react";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -28,6 +28,10 @@ const BookingTable = ()=>{
     const handleClose = () => {
         setAnchorEl(null);
       };
+
+    useEffect(()=>{
+
+    },[])
     return(
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

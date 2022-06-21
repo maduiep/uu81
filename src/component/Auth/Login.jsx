@@ -3,8 +3,8 @@ import { Login as LoginRequest } from '../../app/authSlice';
 
 import { Navigate } from "react-router-dom";
 import { useDispatch,useSelector } from 'react-redux';
-import axios from 'axios';
-import qs from 'qs';
+// import axios from 'axios';
+// import qs from 'qs';
 
 const Login = () => {
 
