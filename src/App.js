@@ -13,6 +13,8 @@ import DashHome from './component/Dashboard/DashHome';
 import Bookings from './component/Dashboard/Bookings/Bookings';
 import Payments from './component/Dashboard/Payments';
 import Profile from './component/Dashboard/Profile';
+import ChangePwd from './component/Dashboard/ChangePwd';
+
 // import Event from './component/Event';
 import Users from './component/Users/Users';
 import User from './component/Users/User';
@@ -66,6 +68,7 @@ function App() {
                     < Route path = "bookings/:id" element = { < Bookings /> } /> 
                     < Route path = "payments" element = { < Payments /> } /> 
                     < Route path = "profile" element = { < Profile /> } /> 
+                    < Route path = "password" element = { < ChangePwd /> } /> 
                     < Route path = "users" element = { < Users /> } /> 
                     < Route path = "users/:id" element = { < User/> }/> 
                 </Route > 

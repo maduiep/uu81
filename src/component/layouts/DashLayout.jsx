@@ -20,7 +20,7 @@ import Container from '@mui/material/Container';
 
 const SideMenu = styled.div`
   width: 80%;
-  height: 100vh;
+  min-height: 100%;
   border: 1px solid #ccc;
   border-top-right-radius: 20px;
   background-color: #2a0d6dc7;
@@ -46,7 +46,7 @@ const menuList = [
   },
   {
     name: 'Profile',
-    path: '/dashboard/bookings',
+    path: '/dashboard/profile',
     icon: <ManageAccountsIcon/>
   },
   {
@@ -79,8 +79,8 @@ const SideBar =({data})=>{
 const DashLayout = () => {
   return (
     <>
-        <Navbar />
-          <Grid container spacing={2}>
+          <Navbar />
+          <Grid container spacing={2} sx={{ overflow:'hidden'}}>
             <Grid item xs={3}>
               <SideBar data={menuList}/>
             </Grid>
@@ -92,7 +92,7 @@ const DashLayout = () => {
               </Container>
             </Grid>
           </Grid>
-        <Footer />
+          <Footer />
     </>
   )
 }

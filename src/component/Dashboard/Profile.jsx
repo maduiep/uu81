@@ -1,5 +1,16 @@
-import React from 'react'
-import { IoIosArrowDown } from 'react-icons/io'
+import { 
+  Box, 
+  Grid, 
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  Button,
+ } from '@mui/material'
+import React,{ useEffect, useState } from 'react'
+// import { IoIosArrowDown } from 'react-icons/io'
 
 const Profile = () => {
   const lineStyle = {
@@ -7,81 +18,81 @@ const Profile = () => {
     height: '1px',
     backgroundColor: 'gray'
   }
+  
   return (
    <>
-    <div className="container">
-      <div className="profile-wrapper-form d-flex justify-content-center flex-column mt-4">
-        <h3>My Profile</h3>
-        <div className="form-wrapper">
-          <form action="" className='mt-4 mb-4'>
-            <div class="form-group">
-              <select class="form-control" id="exampleFormControlSelect1" placeholder='Role'>
-                <option>Member</option>
-                <option>Admin</option>
-                <option>Visitor</option>
-              </select>
-            </div>
+   <Box sx={{ marginBottom:4}}>
+      <Grid item xs={12}><Typography variant='h4'>My Profile</Typography></Grid>
+   </Box>
+   <Grid container spacing={2} sx={{ marginBottom: 5}}>
+      <Grid container item >
+        <FormControl fullWidth size="small">
+          <InputLabel id="demo-simple-select-label">Role</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            // value={age}
+            label="Age"
+            // onChange={handleChange}
+          >
+            <MenuItem value={10}>Member</MenuItem>
+            <MenuItem value={20}>Admin</MenuItem>
+            <MenuItem value={30}>Visitor</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid container item spacing={3}>
+          <Grid item xs={6}>
+              <TextField type="email" size="small" fullWidth placeholder="Enter email" id="outlined-basic" label="Email" variant="outlined" />
+          </Grid>
+          <Grid item xs={6}>
+              <TextField type="password" size="small" fullWidth placeholder="Password" id="outlined-basic" label="Password" variant="outlined" />
+          </Grid>
+      </Grid>
+      <Grid container item spacing={3}>
+          <Grid item xs={6}>
+              <TextField type="text" size="small" fullWidth placeholder="First Name" id="outlined-basic" label="First Name" variant="outlined" />
+          </Grid>
+          <Grid item xs={6}>
+              <TextField type="text" size="small" fullWidth placeholder="Last Name" id="outlined-basic" label="Last Name" variant="outlined" />
+          </Grid>
+      </Grid>
+      <Grid container item spacing={3}>
+          {/* <Grid item xs={6}>
+              <TextField type="text" fullWidth placeholder="First Name" id="outlined-basic" label="First Name" variant="outlined" />
+          </Grid> */}
+          <Grid item xs={6}>
+              <TextField type="tel" size="small" fullWidth placeholder="Phone Number" id="outlined-basic" label="Phone Number" variant="outlined" />
+          </Grid>
+      </Grid>
+      <Grid container item >
+        <Box sx={{
+          width:'100%',
+          height: '30vh',
+        }}>
+            <TextField type="file" name="filename" size="small" fullWidth id="file" sx={{ display:'none'}} />
+            <InputLabel 
+              for="file" 
+              sx={{
+                width:'100%',
+                height: '30vh',
+                borderRadius:3,
+                border: '5px dashed #ccc',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+                
+              }}
 
-            <div className="row mt-3">
-              <div class="col">
-                  <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  />
-              </div>
-              <div class="col">
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-              </div>
-            </div>
-
-            <div class="row mt-3">
-              <div class="col">
-                <input type="text" class="form-control" placeholder="First name" />
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Last name" />
-              </div>
-            </div>
-
-            <div className="row mt-3">
-              <div class="col">
-                  <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  />
-              </div>
-              <div class="col">
-                <input type="phone" className="form-control" id="exampleInputPhone" placeholder="Phone" />
-              </div>
-            </div>
-          </form>
-
-          <div className='line-holder d-flex justify-content-center align-items-center'>
-            <div style={lineStyle}></div>
-            <div className='d-flex align-items-center justify-content-center'>
-              <h5 className='px-2'>More Details</h5>
-              <IoIosArrowDown />
-            </div>
-            <div style={lineStyle}></div>
-          </div>
-
-          {/* file upload starts here */}
-          <div class="row d-flex justify-content-center mt-100">
-            <div class="col-md-8">
-              <div class="card">
-                <div class="card-header">
-                  <h5>File Upload</h5>
-                </div>
-                <div class="card-block">
-                  <form action="#" class="dropzone dz-clickable">
-                    <div class="dz-default dz-message">
-                      <span>Drop files here to upload</span>
-                    </div>
-                  </form>
-                  <div class="text-center m-t-20">
-                    <button class="btn btn-primary">Upload Now</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            > Click To Drop Your Files Here </InputLabel> 
+        </Box>
+      </Grid>
+      <Grid container item>
+          <Grid item xs={3}>
+            <Button variant="contained" color="primary">Save Changes</Button>
+          </Grid>
+      </Grid>
+   </Grid>
    </>
   )
 }

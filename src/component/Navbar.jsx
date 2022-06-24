@@ -14,7 +14,7 @@ const navRef = useRef()
 navRef.current = navBackground
 
 const handleScroll = () => {
-  const show = window.scrollY > 3;
+  const show = window.scrollY > 1;
   console.log(show);
 
   if (show) {
@@ -36,7 +36,7 @@ useEffect(() => {
 
   return (
     <>
-      <nav className={`navbar navbar-expand-lg ${ navRef.current }`}>
+      <nav style={{ zIndex:'10000' }} className={`navbar navbar-expand-lg ${ navRef.current }`}>
         <div className="container-fluid d-flex justify-content-around">
           <div className='brand d-flex justify-content-between align-items-center'>
             <img src="/assets/uu81_logo1.png" alt="LOGO" width="40"/>

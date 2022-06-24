@@ -30,7 +30,7 @@ const initialState = {
 export const Login = createAsyncThunk('login',async (payload)=>{
     try {
         const response = await axios({
-            baseURL:url,
+                baseURL:url,
                 method: 'POST',
                 headers: {
                     'accept': 'application/json',
