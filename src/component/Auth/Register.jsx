@@ -2,6 +2,12 @@ import React,{ useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Register as Reg } from '../../app/authSlice';
+import { 
+  Grid,
+  Box,
+  Typography,
+  TextField
+ } from '@mui/material';
 const Register = () => {
 
   const dispatch = useDispatch();
@@ -35,38 +41,45 @@ const Register = () => {
         <Navigate to="/login" replace={true} />
       )
     }
-     <div className="container">
-     <h3 className='mt-4'> Membership Registration</h3>
-      <form onSubmit={HandleSubmit} className='d-flex justify-content-center flex-column mt-4'>
-          <div className="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" value={ email } onChange={e=> setemail(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-          </div>
-          &nbsp;
-          <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" value={ password } onChange={e=> setpassword(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder="Password" />
-          </div>
-          &nbsp;
-          <div className="form-group">
-            <label for="exampleInputFirstname">First name</label>
-            <input type="firstname" value={ firstname } onChange={e=> setfirstname(e.target.value)} className="form-control" id="exampleInputFirstname" aria-describedby="firstnameHelp" placeholder="Enter Firstname" />
-          </div>
-          &nbsp;
-          <div className="form-group">
-            <label for="exampleInputLastname">Last name</label>
-            <input type="Lastname" value={ lastname } onChange={e=> setlastname(e.target.value)} className="form-control" id="exampleInputLastname" aria-describedby="lastnameHelp" placeholder="Enter Lastname" />
-          </div>
-          &nbsp;
-          <div className="form-group">
-            <label for="exampleInput Phone number">Phone number</label>
-            <input type="phone" value={ phone } onChange={e=> setphone(e.target.value)} className="form-control" id="exampleInputPhone number" aria-describedby="Phone numberHelp" placeholder="Enter Phone number" />
-          </div>
-          &nbsp;
-          <small id="emailHelp" class="form-text text-muted color">Already have an account?</small>
-          <button type="submit" className="btn btn-primary mt-4 mb-4">Submit</button>
-        </form>
-     </div>
+     
+
+      <Box
+        sx={{
+          width:'500px',
+          border: '1px solid #ccc',
+          padding:'20px',
+          borderRadius:'10px'
+        }}
+      >
+
+          <Typography variant="h4" className='mt-4'> Membership Registration</Typography>
+          <form onSubmit={HandleSubmit} className='d-flex justify-content-center flex-column mt-4'>
+          <Grid container item spacing={3}>
+            <Grid container item >
+              <TextField fullWidth value={ email } onChange={e=> setemail(e.target.value)}  id="outlined-basic" label="Email" placeholder='Enter Email' variant="outlined"/>
+            </Grid>
+            <Grid container item >
+              <TextField fullWidth value={ password } onChange={e=> setpassword(e.target.value)}  id="outlined-basic" label="Password" placeholder='Enter Password' variant="outlined"/>
+            </Grid>
+            <Grid container item >
+              <TextField fullWidth value={ firstname } onChange={e=> setfirstname(e.target.value)}  id="outlined-basic" label="First Name" placeholder='Enter First Name' variant="outlined"/>
+            </Grid>
+            <Grid container item >
+              <TextField fullWidth value={ lastname } onChange={e=> setlastname(e.target.value)} id="outlined-basic" label="Last Name" placeholder='Enter Last Name' variant="outlined"/>
+            </Grid>
+            <Grid container item >
+              <TextField fullWidth value={ phone } onChange={e=> setphone(e.target.value)} id="outlined-basic" label="Phone number" placeholder='Enter Phone number' variant="outlined"/>
+            </Grid>
+            <Grid container item >
+              <TextField fullWidth value={ lastname } onChange={e=> setlastname(e.target.value)} id="outlined-basic" label="Email" placeholder='Enter Lastname' variant="outlined"/>
+            </Grid>
+          </Grid>
+    
+              &nbsp;
+              <small id="emailHelp" class="form-text text-muted color">Already have an account?</small>
+              <button type="submit" className="btn btn-primary mt-4 mb-4">Submit</button>
+            </form>
+      </Box>
     </>
   )
 }

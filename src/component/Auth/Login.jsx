@@ -3,6 +3,8 @@ import { Login as LoginRequest } from '../../app/authSlice';
 
 import { Navigate } from "react-router-dom";
 import { useDispatch,useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 // import axios from 'axios';
 // import qs from 'qs';
 
@@ -38,6 +40,10 @@ const Login = () => {
         setpassword(e.target.value)
     }
 
+    const handleForget = async()=>{
+        <Navigate to='/forget'/>
+    }
+
 
   return (
 
@@ -59,7 +65,7 @@ const Login = () => {
                 </div>
                 &nbsp;
             
-                <small id="emailHelp" className="form-text text-muted color">Forgot Password?</small>
+                <Link to='/forget' id="emailHelp" className="form-text text-muted color">Forgot Password?</Link>
                 <button type="submit" className="btn btn-primary mt-4 mb-4">Submit</button>
             </form>
         </div>

@@ -7,8 +7,11 @@ import { refresh } from './app/authSlice';
 import Home from './component/Home';
 import Register from './component/Auth/Register';
 import Login from './component/Auth/Login';
+import ForgetPassword from './component/Auth/forget-password';
+
 import Layout from './component/Layout';
 import DashLayout from './component/layouts/DashLayout'
+
 import DashHome from './component/Dashboard/DashHome';
 import Bookings from './component/Dashboard/Bookings/Bookings';
 import Payments from './component/Dashboard/Payments';
@@ -16,11 +19,14 @@ import Profile from './component/Dashboard/Profile';
 import ChangePwd from './component/Dashboard/ChangePwd';
 
 // import Event from './component/Event';
-import Users from './component/Users/Users';
-import User from './component/Users/User';
 import SingleEvent from './component/SingleEvent';
 import ls from 'localstorage-slim'
 import ProtectedRoutes from './ProtectedRoutes';
+import AuthLayout from './component/Auth/AuthLayout';
+import Events from './component/Dashboard/Events';
+import Finance from './component/Dashboard/finance';
+import Users from './component/Dashboard/Users';
+
 function App() {
     const dispatch = useDispatch();
 
@@ -57,20 +63,25 @@ function App() {
             <Route path = "/" element = { < Layout /> } >
                 <Route path = "/" element = { < Home /> }/> 
                 <Route path = "/event/:id" element = { < SingleEvent /> } /> 
+            </Route>
+
+            <Route path = "/" element = { < AuthLayout /> } >
                 <Route path = "register" element = { < Register /> }/> 
+                <Route path = "forget" element = { <ForgetPassword /> }/> 
                 <Route path = "login" element = { < Login /> }/> 
             </Route>
 
             <Route element = { <ProtectedRoutes/> } > 
                 < Route path = 'dashboard' element = { < DashLayout /> }> 
                     < Route path = "/dashboard" element = { < DashHome /> } /> 
+                    < Route path = "events" element = { < Events /> } /> 
+                    < Route path = "finance" element = { < Finance /> } /> 
+                    < Route path = "users" element = { < Users /> } /> 
                     < Route path = "bookings" element = { < Bookings /> } /> 
                     < Route path = "bookings/:id" element = { < Bookings /> } /> 
                     < Route path = "payments" element = { < Payments /> } /> 
                     < Route path = "profile" element = { < Profile /> } /> 
                     < Route path = "password" element = { < ChangePwd /> } /> 
-                    < Route path = "users" element = { < Users /> } /> 
-                    < Route path = "users/:id" element = { < User/> }/> 
                 </Route > 
             </Route> 
         </Routes>
