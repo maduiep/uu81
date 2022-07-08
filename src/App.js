@@ -26,6 +26,9 @@ import AuthLayout from './component/Auth/AuthLayout';
 import Events from './component/Dashboard/Events';
 import Finance from './component/Dashboard/finance';
 import Users from './component/Dashboard/Users';
+import Book from './component/Dashboard/Bookings/Book';
+
+import { Helmet } from "react-helmet"
 
 function App() {
     const dispatch = useDispatch();
@@ -59,10 +62,17 @@ function App() {
       },[isLoggedIn])
       
     return ( 
+        <>
+        <Helmet>
+          <script src="https://js.paystack.co/v1/inline.js" async></script> 
+        </Helmet>
         <Routes>
             <Route path = "/" element = { < Layout /> } >
                 <Route path = "/" element = { < Home /> }/> 
                 <Route path = "/event/:id" element = { < SingleEvent /> } /> 
+                <Route element = { <ProtectedRoutes/> } > 
+                    < Route path = "book/:id" element = { < Book /> } /> 
+                </Route>
             </Route>
 
             <Route path = "/" element = { < AuthLayout /> } >
@@ -72,19 +82,20 @@ function App() {
             </Route>
 
             <Route element = { <ProtectedRoutes/> } > 
+                {/* < Route path = "book/:id" element = { < Book /> } />  */}
                 < Route path = 'dashboard' element = { < DashLayout /> }> 
                     < Route path = "/dashboard" element = { < DashHome /> } /> 
                     < Route path = "events" element = { < Events /> } /> 
                     < Route path = "finance" element = { < Finance /> } /> 
                     < Route path = "users" element = { < Users /> } /> 
                     < Route path = "bookings" element = { < Bookings /> } /> 
-                    < Route path = "bookings/:id" element = { < Bookings /> } /> 
                     < Route path = "payments" element = { < Payments /> } /> 
                     < Route path = "profile" element = { < Profile /> } /> 
                     < Route path = "password" element = { < ChangePwd /> } /> 
                 </Route > 
             </Route> 
         </Routes>
+    </>
     );
 }
 

@@ -1,12 +1,12 @@
 import React, { useState,useEffect} from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { axiosGet } from './../api/axios';
 
 const SingleEvent = () => {
 
-    const [event,setEvent]=useState();
+    const [ event , setEvent ] = useState();
     
-    const {id}=useParams();
+    const { id } = useParams();
 
     useEffect(()=>{
         getEventById(id);
@@ -34,6 +34,7 @@ const SingleEvent = () => {
             <div className="row p-5">
                 <div className="col-md-4">
                     <h2 className="">SingleEvent</h2>
+                    <Link to={`/book/${ event?.Event.id}`} className="btn btn-info btn-lg">Book Event</Link>
                 </div>
             </div>
         </div>

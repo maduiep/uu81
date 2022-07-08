@@ -21,7 +21,7 @@ const DashHome = () => {
     if(user){
       // setusername(user.)
       console.log('this guy ->',user);
-      setusername(user.email);
+      setusername(user.first_name+' '+user.last_name);
     } 
   },[user])
 

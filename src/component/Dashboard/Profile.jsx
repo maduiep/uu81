@@ -11,13 +11,32 @@ import {
  } from '@mui/material'
 import React,{ useEffect, useState } from 'react'
 // import { IoIosArrowDown } from 'react-icons/io'
-
+import { GetUser } from '../../app/authSlice'
+import { useSelector, useDispatch } from 'react-redux'
 const Profile = () => {
-  const lineStyle = {
-    width: '15rem',
-    height: '1px',
-    backgroundColor: 'gray'
-  }
+ 
+  const dispatch = useDispatch();
+  const { userId, user } = useSelector(state=> state.auth);
+  const [userData, setUserData] = useState(null);
+  const [userRole, setuserRole] = useState(null);
+  const [userEmail, setuserEmail] = useState(null);
+  const [userFirstName, setuserFirstName] = useState(null);
+  const [userLastName, setuserLastName] = useState(null);
+  const [userPhone, setuserPhone] = useState(null);
+  const [userImage, setuserImage] = useState(null);
+
+  useEffect(()=>{
+    dispatch(GetUser(userId))
+  },[])
+  useEffect(()=>{
+    if(user !== []){
+      setuserImage(user.image_url)
+      setuserEmail(user.email)
+      setuserFirstName(user.first_name)
+      setuserLastName(user.last_name)
+      setuserPhone(user.phone_number)
+    }
+  },[user])
   
   return (
    <>
@@ -31,9 +50,10 @@ const Profile = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            // value={age}
+            value={userRole}
             label="Age"
-            // onChange={handleChange}
+            onChange={e => setuserRole(e.target.value)}
+            disabled
           >
             <MenuItem value={10}>Member</MenuItem>
             <MenuItem value={20}>Admin</MenuItem>
@@ -43,18 +63,57 @@ const Profile = () => {
       </Grid>
       <Grid container item spacing={3}>
           <Grid item xs={6}>
-              <TextField type="email" size="small" fullWidth placeholder="Enter email" id="outlined-basic" label="Email" variant="outlined" />
+              <TextField 
+                type="email" 
+                size="small" 
+                fullWidth 
+                placeholder="Enter email" 
+                id="outlined-basic" 
+                label="Email" 
+                variant="outlined" 
+                value={userEmail}
+                onChange={ e=> setuserEmail(e.target.value)}
+              />
           </Grid>
           <Grid item xs={6}>
-              <TextField type="password" size="small" fullWidth placeholder="Password" id="outlined-basic" label="Password" variant="outlined" />
+              <TextField 
+                type="password" 
+                size="small" 
+                fullWidth 
+                placeholder="Password" 
+                id="outlined-basic" 
+                label="Password" 
+                variant="outlined" 
+                disabled
+              />
           </Grid>
       </Grid>
       <Grid container item spacing={3}>
           <Grid item xs={6}>
-              <TextField type="text" size="small" fullWidth placeholder="First Name" id="outlined-basic" label="First Name" variant="outlined" />
+              <TextField 
+                type="text" 
+                size="small" 
+                fullWidth 
+                placeholder="First Name" 
+                id="outlined-basic" 
+                label="First Name" 
+                variant="outlined" 
+                value={ userFirstName }
+                onChange={ e => setuserFirstName(e.target.value)}
+              />
           </Grid>
           <Grid item xs={6}>
-              <TextField type="text" size="small" fullWidth placeholder="Last Name" id="outlined-basic" label="Last Name" variant="outlined" />
+              <TextField 
+                type="text" 
+                size="small" 
+                fullWidth 
+                placeholder="Last Name" 
+                id="outlined-basic" 
+                label="Last Name" 
+                variant="outlined" 
+                value={ userLastName }
+                onChange={ e => setuserLastName(e.target.value) }
+              />
           </Grid>
       </Grid>
       <Grid container item spacing={3}>
@@ -62,7 +121,17 @@ const Profile = () => {
               <TextField type="text" fullWidth placeholder="First Name" id="outlined-basic" label="First Name" variant="outlined" />
           </Grid> */}
           <Grid item xs={6}>
-              <TextField type="tel" size="small" fullWidth placeholder="Phone Number" id="outlined-basic" label="Phone Number" variant="outlined" />
+              <TextField 
+                type="tel" 
+                size="small" 
+                fullWidth 
+                placeholder="Phone Number" 
+                id="outlined-basic" 
+                label="Phone Number" 
+                variant="outlined" 
+                value={ userPhone }
+                onChange={ e => setuserPhone(e.target.value)}
+              />
           </Grid>
       </Grid>
       <Grid container item >
@@ -70,7 +139,15 @@ const Profile = () => {
           width:'100%',
           height: '30vh',
         }}>
-            <TextField type="file" name="filename" size="small" fullWidth id="file" sx={{ display:'none'}} />
+            <TextField 
+              type="file" 
+              name="filename" 
+              size="small" 
+              fullWidth 
+              id="file" 
+              sx={{ display:'none'}} 
+              
+            />
             <InputLabel 
               for="file" 
               sx={{

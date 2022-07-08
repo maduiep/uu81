@@ -17,6 +17,11 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import Container from '@mui/material/Container';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import GroupIcon from '@mui/icons-material/Group';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+
+import { useSelector } from 'react-redux'
 
 const SideMenu = styled.div`
   width: 80%;
@@ -34,6 +39,43 @@ const SideMenu = styled.div`
   /* padding: 20px; */
 `
 const menuList = [
+  {
+    name: 'My Bookings',
+    path: '/dashboard/bookings',
+    icon: <CalendarTodayIcon/>
+  },
+  {
+    name: 'Payments',
+    path: '/dashboard/payments',
+    icon: <PaymentsIcon/>
+  },
+  {
+    name: 'Profile',
+    path: '/dashboard/profile',
+    icon: <ManageAccountsIcon/>
+  },
+  {
+    name: 'Change password',
+    path: '/dashboard/password',
+    icon: <PasswordIcon/>
+  }
+]
+const AdminMenuList = [
+  {
+    name: 'Manage Events',
+    path: '/dashboard/events',
+    icon: <CalendarMonthIcon/>
+  },
+  {
+    name: 'Manage Users',
+    path: '/dashboard/users',
+    icon: <GroupIcon/>
+  },
+  {
+    name: 'Manage Finance',
+    path: '/dashboard/finance',
+    icon: <CreditCardIcon/>
+  },
   {
     name: 'My Bookings',
     path: '/dashboard/bookings',
@@ -77,12 +119,13 @@ const SideBar =({data})=>{
   )
 }
 const DashLayout = () => {
+  const { isAdmin } = useSelector(state => state.auth)
   return (
     <>
           <Navbar />
           <Grid container spacing={2} sx={{ overflow:'hidden'}}>
             <Grid item xs={3}>
-              <SideBar data={menuList}/>
+              <SideBar data={isAdmin ? AdminMenuList :menuList}/>
             </Grid>
             <Grid item xs={8}>
               <Container maxWidth="md" sx={{

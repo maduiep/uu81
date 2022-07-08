@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 
-    const [username,setusername] = useState('user@example.com');
-    const [password,setpassword] = useState('string');
+    const [username,setusername] = useState('babajide2341@gmail.com');
+    const [password,setpassword] = useState('123456');
     const { isLoggedIn } = useSelector((state)=> state.auth)
 
     const dispatch = useDispatch()

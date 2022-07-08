@@ -21,23 +21,27 @@ const Event = ({data}) => {
                 data && data.map((item,i)=>{
                   return (
                       <>
-                      {/* <div key={i} className="jumbotron mb-5">
-                        <div className="card mb-3 w-53">
-                          <img className='card-img-top' src="/assets/card-img.jpg" alt="" height="200"/>
-                          <div className="card-body">
-                            <h5 className="card-title">{item.Event.title}</h5>
-                            <p className="card-text">Venue: Dr Goodluck Ebele Jonathan, Yenagoa | November 25 - November 28 | ₦0.00 | 120 spaces</p>
-                            <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
+                      <div key={item.Event.id}  className="col-4">
+                        <div  className="jumbotron mb-5">
+                          <div className="card mb-3 w-53">
+                            <img className='card-img-top' src={item.Event.image_url} alt="" height="200"/>
+                            <div className="card-body">
+                              <h5 className="card-title">{item.Event.title}</h5>
+                              <p className="card-text">{item.Event.space_available} spaces</p>
+                              <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
+                            </div>
+                          </div>
+
+                          <div className="btn-wrapper d-flex justify-content-end align-items-end">
+                            {/* <button type="button" className="btn btn-info btn-lg">
+                              View 
+                            </button> */}
+                            <Link to={`/event/${item.Event.id}`} className="btn btn-info btn-lg">View Details</Link>
                           </div>
                         </div>
-
-                        <div className="btn-wrapper d-flex justify-content-end align-items-end">
-                          <button style={btnColor} type="button" className="btn btn-info btn-lg">
-                            View Details
-                          </button>
-                        </div>
-                      </div> */}
-                      <div key={i} className="col-lg-4">
+                      </div>
+                      
+                      {/* <div key={i} className="col-lg-4">
                         <div className="card card-margin">
                             <div className="card-header no-border">
                                 <h5 className="card-title">{item.Event.title}</h5>
@@ -59,13 +63,13 @@ const Event = ({data}) => {
                                         <li className="widget-49-meeting-item"><span>Data migration is in scope</span></li>
                                         <li className="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
                                     </ol> */}
-                                    <div className="widget-49-meeting-action">
+                                    {/* <div className="widget-49-meeting-action">
                                         <Link to={`/event/${item.Event.id}`} className="btn btn-sm btn-flash-border-primary">View</Link>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                      </div>
+                            </div> */}
+                        {/* </div> */}
+                      {/* </div> */}
                       </>
                     )
                   }

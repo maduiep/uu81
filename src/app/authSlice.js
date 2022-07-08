@@ -20,13 +20,14 @@ const initialState = {
     items:[],
     isLoggedIn: false,
     isLoading: false,
+    isAdmin: false,
     accessToken:'',
     accessType:'',
     user:[],
     userId:'',
-    isAdmin:false,
     userRegistered:false
 }
+
 export const Login = createAsyncThunk('login',async (payload)=>{
     try {
         const response = await axios({
@@ -103,11 +104,13 @@ export const authSlice = createSlice({
             
             state.items = action.payload.data;
             state.accessToken = action.payload.access_token;
+            
             var decoded = jwt_decode(state.accessToken);
+
             state.userId = decoded.user_id;
             state.accessType = action.payload.token_type;
             state.isLoggedIn = true;
-            
+
             console.log(decoded);
             ls.set('token',{
                 isloggedin:state.isLoggedIn,
@@ -140,6 +143,7 @@ export const authSlice = createSlice({
         [GetUser.fulfilled]: (state, action) => {
             console.log('fulfiled', action);
             state.user = action.payload
+            state.isAdmin = action.payload.admin 
             state.isLoading = false;
         },
         [GetUser.rejected]: (state,action) => {
