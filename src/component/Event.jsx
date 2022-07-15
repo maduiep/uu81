@@ -1,6 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Stack,List, ListItem } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+const GetTime = ({date , type}) => {
+  // const dateString = date.getTime();
+  const dateObj =new Date();
+  const dateString = dateObj.getTime();
+  const month = dateObj.getMonth() + 1
+  const year = dateObj.getFullYear()
+  const hour = dateObj.getHours()
+  const minute = dateObj.getMinutes()
+  const second = dateObj.getSeconds()
+  const time = `${month}/${year} ${hour}:${minute}:${second}`
+  return time
+}
 const Event = ({data}) => {
 
   // const btnColor = {
@@ -15,67 +36,80 @@ const Event = ({data}) => {
   return (
    <div className="container my-5">
      <div className="row min-vh-100">
+        <div className="col-3">
+          
+        </div>
+        
        <div className="col">
-          <div className="row gx-5">
+         <div className="row gx-5">
               {
                 data && data.map((item,i)=>{
                   return (
                       <>
-                      <div key={item.Event.id}  className="col-4">
-                        <div  className="jumbotron mb-5">
-                          <div className="card mb-3 w-53">
-                            <img className='card-img-top' src={item.Event.image_url} alt="" height="200"/>
-                            <div className="card-body">
-                              <h5 className="card-title">{item.Event.title}</h5>
-                              <p className="card-text">{item.Event.space_available} spaces</p>
-                              <p className="card-text"><small className="text-muted">Reunion of 1981 Set</small></p>
-                            </div>
-                          </div>
-
-                          <div className="btn-wrapper d-flex justify-content-end align-items-end">
-                            {/* <button type="button" className="btn btn-info btn-lg">
-                              View 
-                            </button> */}
-                            <Link to={`/event/${item.Event.id}`} className="btn btn-info btn-lg">View Details</Link>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* <div key={i} className="col-lg-4">
-                        <div className="card card-margin">
-                            <div className="card-header no-border">
-                                <h5 className="card-title">{item.Event.title}</h5>
-                            </div>
-                            <div className="card-body pt-0">
-                                <div className="widget-49">
-                                    <div className="widget-49-title-wrapper">
-                                        <div className="widget-49-date-primary">
-                                            <span className="widget-49-date-day">09</span>
-                                            <span className="widget-49-date-month">{new Date(item.Event.created_at).toLocaleString("en-US", { month: "short" })}</span>
-                                        </div>
-                                        <div className="widget-49-meeting-info">
-                                            <span className="widget-49-pro-title">PRO-08235 DeskOpe. Website</span>
-                                            <span className="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                                        </div>
-                                    </div>
-                                    {/* <ol className="widget-49-meeting-points">
-                                        <li className="widget-49-meeting-item"><span>Expand module is removed</span></li>
-                                        <li className="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                                        <li className="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
-                                    </ol> */}
-                                    {/* <div className="widget-49-meeting-action">
-                                        <Link to={`/event/${item.Event.id}`} className="btn btn-sm btn-flash-border-primary">View</Link>
-                                    </div>
-                                </div>
-                            </div> */}
-                        {/* </div> */}
-                      {/* </div> */}
+                      <Card key={item.Event.id} sx={{ maxWidth: '90%', mb: '50px' }}>
+                        <CardMedia
+                          component="img"
+                          alt="green iguana"
+                          height="140"
+                          image={item.Event.image_url}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" color="text.primary">
+                            {item.Event.title} | {GetTime(item.Event.created_at, 'date')}
+                          </Typography>
+                          <Typography variant="h6" color="text.secondary">
+                              Venue: Dr Goodluck Ebele Jonathan, Yenagoa | November 25 - November 28 | ₦0.00 | 120 spaces
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button component={Link} to={`/event/${item.Event.id}`} variant="contained" size="small">View Details</Button>
+                        </CardActions>
+                      </Card>
                       </>
                     )
                   }
                 )
               }
           </div>
+       </div>
+       <div className="col-3">
+            <Stack justifyContent="center" alignItems="center">
+              <Typography variant="h4">Venues</Typography>
+            </Stack>
+            
+            <List>
+              <ListItem divider>
+                <Link to='/'>All Venues</Link>
+              </ListItem>
+              <ListItem divider>
+                <Link to='/'>Dr Goodluck Ebele Jonathan, Yenagoa (1)</Link>
+              </ListItem>
+            </List>
+            <Stack justifyContent="center" alignItems="center">
+                <Typography variant="h4">Activities</Typography>
+            </Stack>
+            <List sx={{ width: '100%'}}>
+              <ListItem divider>
+                <Link to='/'>All Activities</Link>
+              </ListItem>
+              <ListItem divider>
+                <Link to='/'>Reunion (1)</Link>
+              </ListItem>
+              <ListItem divider>
+                <Link to='/'>Workshop (0)</Link>
+              </ListItem>
+            </List>
+            <Stack direction="row" justifyContent="center" alignItems="center">
+                <Typography variant="h4">Follow Us</Typography>
+            </Stack>
+              <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                <Link to="https://www.facebook.com/yenagoa/" >
+                    <FacebookIcon/>
+                </Link>
+                <Link to="https://www.instagram.com/yenagoa/" >
+                    <TwitterIcon/>
+                </Link>
+              </Stack>
        </div>
      </div>
    </div>

@@ -31,8 +31,8 @@ const DashHome = () => {
   },[])
   
   return (
-    <div className="container h-100">
-    <div className="profile-wrapper h-100 d-flex align-items-center justify-content-center mt-4 mb-4">
+    <div className="container ">
+    <div className="profile-wrapper d-flex align-items-center justify-content-center mt-4 mb-4">
       <div className="profile d-flex align-items-center flex-column">
         <img src="/assets/profile.jpg" alt="" />
         <h3 className='mt-4'>Welcome, {username}</h3>

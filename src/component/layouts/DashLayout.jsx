@@ -123,13 +123,14 @@ const DashLayout = () => {
   return (
     <>
           <Navbar />
-          <Grid container spacing={2} sx={{ overflow:'hidden'}}>
-            <Grid item xs={3}>
-              <SideBar data={isAdmin ? AdminMenuList :menuList}/>
-            </Grid>
-            <Grid item xs={8}>
+          <Grid container spacing={2}  sx={{ overflow:'hidden'}}>
+            {/* <Grid item xs={3}> */}
+              {/* <SideBar data={isAdmin ? AdminMenuList :menuList}/> */}
+            {/* </Grid> */}
+            <Grid item xs={12} >
               <Container maxWidth="md" sx={{
-                paddingTop:5
+                paddingTop:5,
+                height:'100vh',
               }}>
                 <Outlet/>
               </Container>
