@@ -34,19 +34,19 @@ const Event = ({data}) => {
   //   backgroundColor: 'gray'
   // }
   return (
-   <div className="container my-5">
+   <div className="container">
      <div className="row min-vh-100">
-        <div className="col-3">
+        <div className="col-lg-3 col-sm-12 ">
           
         </div>
         
-       <div className="col">
-         <div className="row gx-5">
+       <div className="col-sm-12 col-lg-6">
+         <div className="row mt-5 mb-5">
               {
                 data && data.map((item,i)=>{
                   return (
                       <>
-                      <Card key={item.Event.id} sx={{ maxWidth: '90%', mb: '50px' }}>
+                      <Card key={item.Event.id} sx={{ maxWidth: '90%', mb: '50px', mx: 'auto' }}>
                         <CardMedia
                           component="img"
                           alt="green iguana"
@@ -72,7 +72,7 @@ const Event = ({data}) => {
               }
           </div>
        </div>
-       <div className="col-3">
+       <div className="col-lg-3 col-sm-12 mb-5">
             <Stack justifyContent="center" alignItems="center">
               <Typography variant="h4">Venues</Typography>
             </Stack>

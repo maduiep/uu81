@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React,{ useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import { logout } from '../app/authSlice';
 // import { Link } from 'react-router-dom'
 
-import { ListItemIcon, ListItemText } from '@mui/material';
+// import { ListItemIcon, ListItemText } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -25,6 +26,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 
+// import Container from 'react-bootstrap/Container';
+// import Navbar from 'react-bootstrap/Navbar';
+
+
+import MenuIcon from '@mui/icons-material/Menu';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -126,65 +132,165 @@ const AdminMenuList = [
   }
 ]
 const Navbar = () => {
-const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-const [navBackground, setNavBackground] = useState('navbar-transparent')
-const [navMove, setNavMove] = useState(false);
-const [anchorEl, setAnchorEl] = React.useState(null);
+    const [navBackground, setNavBackground] = useState('navbar-transparent')
+    const [navMove, setNavMove] = useState(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-const { isLoggedIn, userId, user } = useSelector((state)=> state.auth)
-const [username,setusername]=useState('');
-const [role,setRole]=useState(false);
-useEffect(()=>{
-  if(user){
-    // setusername(user.)
-    console.log('this guy ->',user);
-    setusername(user.first_name+' '+user.last_name);
-    if(user.admin){
-      setRole(true);
+    const { isLoggedIn, userId, user } = useSelector((state)=> state.auth)
+    const [username,setusername]=useState('');
+    const [role,setRole]=useState(false);
+    useEffect(()=>{
+      if(user){
+        // setusername(user.)
+        console.log('this guy ->',user);
+        setusername(user.first_name+' '+user.last_name);
+        if(user.admin){
+          setRole(true);
+        }
+      } 
+    },[user])
+
+    const navRef = useRef()
+
+    navRef.current = navBackground
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const handleScroll = () => {
+      const show = window.scrollY > 1;
+      console.log(show);
+
+      if (show) {
+          setNavBackground('navbar-color fixed ')
+          setNavMove(true)
+      } else {
+          setNavBackground('navbar-transparent')
+          setNavMove(false)
+      }
     }
-  } 
-},[user])
-
-const navRef = useRef()
-
-navRef.current = navBackground
-const open = Boolean(anchorEl);
-
-const handleClick = (event) => {
-  setAnchorEl(event.currentTarget);
-};
-const handleClose = () => {
-  setAnchorEl(null);
-};
-
-const handleScroll = () => {
-  const show = window.scrollY > 1;
-  console.log(show);
-
-  if (show) {
-      setNavBackground('navbar-color fixed ')
-      setNavMove(true)
-  } else {
-      setNavBackground('navbar-transparent')
-      setNavMove(false)
-  }
-}
-const Handlelogout = ()=>{
-  setAnchorEl(null);
-  dispatch(logout());
-}
-
-useEffect(() => {
-    document.addEventListener('scroll', handleScroll)
-
-    return () => {
-        document.removeEventListener('scroll', handleScroll)
+    const Handlelogout = ()=>{
+      setAnchorEl(null);
+      dispatch(logout());
     }
-}, [])
+
+    useEffect(() => {
+        document.addEventListener('scroll', handleScroll)
+
+        return () => {
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
   return (
     <>
+     
+    <nav className={`navbar navbar-expand-lg ${ navRef.current }`}>
+      <div className="container">
+      <a class="navbar-brand" href="#">
+        <div className={ navMove ? 'brand tb':'brand'}>
+            <img className="navbar_logo" src="/assets/uu81_logo1.png" alt="LOGO"/>
+            <h6>UNIQUE UNIPORT81</h6>
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <MenuIcon/>
+      </button>
+      <div class="collapse navbar-collapse p-5 d-flex justify-content-end" style={{ zIndex: '1000', background: '#fff'}} id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          {/* <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li> */}
+          {
+                isLoggedIn ? (
+                  <>
+                  {/* <li class="nav-item">
+                  <button onClick={Handlelogout} className="navbar_btn">
+                    Logout
+                  </button>
+                  </li> */}
+                  <Button
+                      id="demo-customized-button"
+                      aria-controls={open ? 'demo-customized-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      variant="contained"
+                      disableElevation
+                      onClick={handleClick}
+                      endIcon={<KeyboardArrowDownIcon />}
+                    >
+                      {username}
+                  </Button>
+                  <StyledMenu
+                      id="demo-customized-menu"
+                      MenuListProps={{
+                        'aria-labelledby': 'demo-customized-button',
+                      }}
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                    >
+                      {
+                        role ? (
+                          <>
+                            {AdminMenuList.map((item,index)=>{
+                              return(
+                                <MenuItem key={index} component={Link} to={item.path} onClick={handleClose}>
+                                    {item.icon}
+                                    {item.name}
+                                </MenuItem>
+                              )
+                            })}
+                          </>
+                        ):( 
+                          <>
+                            {menuList.map((item,index)=>{
+                              return(
+                                <MenuItem key={index} component={Link} to={item.path} onClick={handleClose}>
+                                    {item.icon}
+                                    {item.name}
+                                </MenuItem>
+                              )
+                            })}
+                          </>
+                        )
+                      }
+                      
+                      <Divider sx={{ my: 0.5 }} />
+                      <MenuItem onClick={Handlelogout} disableRipple>
+                          Logout
+                      </MenuItem>
+                  </StyledMenu>
+                  </>
+                ):(
+                  <>
+                    <li class="nav-item">
+                      <Link to={'/register'} className={navMove ? 'navbar_btn border ':'navbar_btn '}>
+                        Register
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={'/login'} className={navMove ? 'navbar_btn border ':'navbar_btn '}>
+                        SignIn
+                      </Link>
+                    </li>
+                  </>
+                )
+              }
+              
+        </ul>
+      </div>
+      </div>
+    </nav> 
+    
+    {/*
       <nav style={{ zIndex:'10000' }} className={`navbar navbar-expand-lg ${ navRef.current }`}>
         <div className="container-fluid d-flex justify-content-around">
           <div className={ navMove ? 'brand tb':'brand'}>
@@ -197,9 +303,9 @@ useEffect(() => {
               {
                 isLoggedIn ? (
                   <>
-                  {/* <button onClick={Handlelogout} className="navbar_btn ">
+                  <button onClick={Handlelogout} className="navbar_btn ">
                     Logout
-                  </button> */}
+                  </button>
                     <Button
                       id="demo-customized-button"
                       aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -268,7 +374,7 @@ useEffect(() => {
             </form>
           </div>
         </div>
-      </nav>
+      </nav> */}
     </>
   )
 }

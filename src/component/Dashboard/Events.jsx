@@ -10,7 +10,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Chip from '@mui/material/Chip';
 
-import { DataGrid, GridToolbar, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import Modal from '@mui/material/Modal';
 
 import { Link } from 'react-router-dom';
@@ -55,17 +54,19 @@ const Events = () => {
       // setAnchorEl(null);
       console.log('console: %d',id)
   };
- 
+  const handleApprove = (id) => {
+      // setAnchorEl(null);
+      console.log('console: %d',id)
+  }
   const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '60%',
+    width: {  xs:'90%', md:'60%' },
     bgcolor: 'background.paper',
     // border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
   };
   return (
     <>
@@ -74,7 +75,7 @@ const Events = () => {
             <Box sx={{
               marginBottom: '2rem'
             }}>
-            <Button variant="contained" color="primary" onClick={handleModalOpen}>
+            <Button variant="contained" color="primary"  onClick={handleModalOpen}>
               Create Event
             </Button>
             </Box>
@@ -155,13 +156,13 @@ const Events = () => {
                             onClose={handleClose}
                             onClick={handleClose}
                         >
-                            <MenuItem>
+                            <MenuItem onClick={(e) => handleApprove(e, row.Event.id)}>
                               <Typography color='danger'>Approve</Typography>
                             </MenuItem>
                             <MenuItem>
                               <Typography color='danger'>Unaprove</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handledelete(row.Event.id)} divider={true} sx={{ color:'red', }}> 
+                            <MenuItem onClick={() => handledelete(row.Event.id)} divider={true} sx={{ color:'red', }}> 
                               <ListItemIcon>
                                 <DeleteIcon sx={{color:'red'}}/>
                               </ListItemIcon>

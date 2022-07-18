@@ -1,8 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
 .main {
     background-image: url('/public/assets/cover-5.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 70vh;
+    width: 100%;
 }
 
 .brand {
@@ -21,6 +28,8 @@
     margin-top: 0 !important;
     transition: all .3s ease-in-out;
 }
+
+  
 .navbar_btn {
     padding: 10px 30px;
     background-color: #fff;
@@ -29,6 +38,9 @@
     color: #000;
     font-weight: 500;
     margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .navbar_logo{
   width: 50px;
@@ -55,6 +67,7 @@
 
 .header-main-text {
     margin-top: 4rem;
+    text-align: center;
 }
 
 .btn-style {
@@ -465,4 +478,26 @@ body{
 
 .widget-49 .widget-49-meeting-action a {
   text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+  .main{
+    height: 40vh;
+  }
+  .navbar_btn{
+    /* padding: 10px 30px;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    color: #000;
+    font-weight: 500;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;  */
+    margin-bottom: 20px;
+  }
+  .profile{
+    text-align: center;
+  }
 }

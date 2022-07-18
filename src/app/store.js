@@ -4,6 +4,7 @@ import loadingReducer from './loader';
 import authReducer from './authSlice';
 import bookingReducer from './bookingSlice';
 import eventReducer from './eventSlice';
+import userReducer from './userSlice';
 
 export default configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
     loading: loadingReducer,
     auth: authReducer,
     book: bookingReducer,
-    event: eventReducer
+    event: eventReducer,
+    user: userReducer
   },
 });

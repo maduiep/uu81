@@ -52,13 +52,15 @@ const Login = () => {
         {isLoggedIn && (
           <Navigate to="/dashboard" replace={true} />
         )}
-        <div className="container">
+        {/* <div className="container"> */}
                 <Grid container justifyContent={'center'} spacing={3}>
-                    <Grid item xs={5}>
+                    <Grid item xs={12} lg={5}>
                         <Box sx={{
                             border: '1px solid #e0e0e0',
                             padding: '2rem',
                             borderRadius: '15px',
+                            width: '90%',
+                            margin: 'auto',
                         }}>
                             <h3 className='mt-4'> Enter Credentials</h3>
                             <form className='d-flex justify-content-center flex-column mt-4' onSubmit={Handlesubmit}>
@@ -79,7 +81,7 @@ const Login = () => {
                         </Box>
                     </Grid>
                 </Grid>
-        </div>
+        {/* </div> */}
     </>
   )
 }
