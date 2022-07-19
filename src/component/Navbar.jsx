@@ -200,11 +200,11 @@ const Navbar = () => {
             <h6>UNIQUE UNIPORT81</h6>
         </div>
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <MenuIcon/>
       </button>
-      <div class="collapse navbar-collapse p-5 d-flex justify-content-end" style={{ zIndex: '1000', background: '#fff'}} id="navbarNavDropdown">
-        <ul class="navbar-nav">
+      <div className="collapse navbar-collapse p-5 d-flex justify-content-end" style={{ zIndex: '1000', background: '#fff'}} id="navbarNavDropdown">
+        <ul className="navbar-nav">
           {/* <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li> */}

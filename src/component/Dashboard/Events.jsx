@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { axiosGet } from '../../api/axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { allEvents } from '../../app/eventSlice';
@@ -15,6 +15,8 @@ import Modal from '@mui/material/Modal';
 import { Link } from 'react-router-dom';
 // import {  } from '@mui/material/Button';
 import AddEvent from './AddEvent';
+import { DataGrid } from "@mui/x-data-grid";
+import { updateEvents } from "../../app/eventSlice";
 
 const Events = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,6 +29,58 @@ const Events = () => {
   const [openModal, setOpenModal] = useState(false);
   const handleModalOpen = () => setOpenModal(true);
   const handleModalClose = () => setOpenModal(false);
+  const rows = events.map(event => ({
+    id: event.Event.id,
+    name: event.Event.title,
+    edition: event.Event.space_allowed, 	
+    type: event.Event.type,
+    spacesAllowed: event.Event.space_allowed, 	
+    spacesLeft: event.Event.space_allowed, 	
+    cost: event.Event.cost, 	
+    status: event.Event.status, 	
+    Action: event.Event.id,
+  }));
+  const columns = [
+    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'edition', headerName: 'Edition', width: 80 },
+    { field: 'type', headerName: 'Type', width: 50 },
+    { field: 'spacesAllowed', headerName: 'Spaces Allowed', width: 150, renderCell: (rowData) => <><Typography>{rowData.value}</Typography> <Chip label={rowData.value +' Spaces Taken'} size="small" color="success" /></> },
+    { field: 'spacesLeft', headerName: 'Spaces Left', width: 90 },
+    { field: 'cost', headerName: 'Cost', width: 70, renderCell: (rowData) => <><Typography>{'₦ ' + rowData.value}</Typography></> },
+    { 
+      field: 'status', 
+      headerName: 'Status', 
+      width: 130, 
+      renderCell: (rowData) => {
+        return (
+          <Chip 
+            label={rowData.value ? 'Approved' : 'Not Approved'} 
+            size="small" color={rowData.value ? "success":"error"} 
+            variant="outlined" 
+            onClick={(e,row)=>handleApprove(rowData.id)}
+          />
+        )
+      }  
+    },
+    { 
+      field: 'Action', 
+      headerName: 'Action', 
+      width: 150 , 
+      renderCell: (params) => {
+        const id = params.value;
+      return(
+        <>
+          <IconButton aria-label="delete" onClick={() => handleApprove(id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton aria-label="delete" onClick={() => handleDelete(id)}>
+            <DeleteIcon />
+          </IconButton>
+        </>
+      )}
+  },
+
+  ];
 
   useEffect(()=>{
     const payload ={
@@ -50,12 +104,18 @@ const Events = () => {
       setAnchorEl(null);
   };
 
-  const handledelete = (id) => {
+  const handleDelete = (id) => {
       // setAnchorEl(null);
       console.log('console: %d',id)
   };
   const handleApprove = (id) => {
       // setAnchorEl(null);
+      // e.preventDefault();
+      // console.log(e)
+      const payload = {
+        status: true,
+      }
+      dispatch(updateEvents(id,payload))
       console.log('console: %d',id)
   }
   const style = {
@@ -68,6 +128,7 @@ const Events = () => {
     // border: '2px solid #000',
     boxShadow: 24,
   };
+
   return (
     <>
         <Grid container spacing={3}>
@@ -93,90 +154,13 @@ const Events = () => {
       </Modal>
         {
           events && (
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Event Name</TableCell>
-                    <TableCell>Edition</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Spaces Allowed</TableCell>
-                    <TableCell>Spaces Left</TableCell>
-                    <TableCell>Cost</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Action</TableCell>
-                    {/* <TableCell>Title</TableCell>
-                    <TableCell align="center">Space Allowed</TableCell>
-                    <TableCell align="center">Action</TableCell> */}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  { events?.map((row) => (
-                    <TableRow key={row.Event.title} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell align="center"></TableCell>
-                      <TableCell component="th" scope="row">
-                        <Link to={'/'}>{row.Event.title}</Link>
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Event.space_allowed}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Event.space_allowed}
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography>
-                          {row.Event.space_allowed}
-                        </Typography>
-                        <Chip label={row.Event.space_available +' Spaces Taken'} size="small" color="success" />
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Event.space_available}
-                      </TableCell>
-                      <TableCell align="center">
-                        {'₦ ' + row.Event.cost}
-
-                      </TableCell>
-                      <TableCell align="center">
-                        <Chip label={row.Event.status ? 'Approved' : 'Not Approved'} size="small" color={row.Event.status ? "success":"error"} variant="outlined" />
-                      </TableCell>
-                      <TableCell align="center">
-                        <IconButton
-                            onClick={handleClick}
-                            aria-controls={open ? 'amenu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                        >
-                            <MoreVertIcon/>
-                        </IconButton>
-                        <Menu
-                            anchorEl={anchorEl}
-                            id="amenu"
-                            open={open}
-                            onClose={handleClose}
-                            onClick={handleClose}
-                        >
-                            <MenuItem onClick={(e) => handleApprove(e, row.Event.id)}>
-                              <Typography color='danger'>Approve</Typography>
-                            </MenuItem>
-                            <MenuItem>
-                              <Typography color='danger'>Unaprove</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={() => handledelete(row.Event.id)} divider={true} sx={{ color:'red', }}> 
-                              <ListItemIcon>
-                                <DeleteIcon sx={{color:'red'}}/>
-                              </ListItemIcon>
-                              <Typography color='danger'>Delete</Typography>
-                            </MenuItem>
-                            {/* <MenuItem> <ListItemIcon><EditIcon sx={{color:'blue'}}/></ListItemIcon><Typography color='blue'>Edit</Typography></MenuItem> */}
-                        </Menu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            
+            <DataGrid 
+            autoHeight 
+            disableSelectionOnClick
+            autoPageSize
+            rows={rows} 
+            columns={columns} 
+            />
           )
         }
         {
