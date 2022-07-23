@@ -129,9 +129,10 @@ const DashLayout = () => {
             {/* </Grid> */}
             <Grid item xs={12} >
               <Container maxWidth="md" sx={{
-                paddingTop:5,
+                paddingTop:15,
                 // height:'100vh',
                 minHeight: '100vh'
+
               }}>
                 <Outlet/>
               </Container>

@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React,{ useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import { logout } from '../app/authSlice';
 // import { Link } from 'react-router-dom'
 
 // import { ListItemIcon, ListItemText } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -31,47 +31,12 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import styled from 'styled-components';
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  '& .MuiPaper-root': {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: 180,
-    color:
-      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-    boxShadow:
-      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    '& .MuiMenu-list': {
-      padding: '4px 0',
-    },
-    '& .MuiMenuItem-root': {
-      '& .MuiSvgIcon-root': {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      '&:active': {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity,
-        ),
-      },
-    },
-  },
-}));
 const menuList = [
   {
     name: 'My Bookings',
@@ -131,6 +96,150 @@ const AdminMenuList = [
     icon: <PasswordIcon/>
   }
 ]
+
+const Navcontainer = styled.div`
+  width:100%;
+  background-color: ${props=> props.dash ? '#fff': props.bg ? '#fff':'transparent'};
+  padding:${props=>props.mobile ? '20px 20px':'20px 70px'};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  box-shadow: ${props => props.dash ? '0px 0px 10px #ccc': 'none'};
+  
+`
+const NavLogo = styled(Link)`
+  display: flex;
+  align-items: center;
+  color: ${props => props.dash ? ' #000': ' #ffffff'};
+  text-decoration: none;
+  h6{
+    margin:0;
+  }
+  img{
+    width: 50px;
+    height: 40px;
+  }
+`
+const NavMenu = styled.ul`
+  display: ${ props=> props.mobile ? 'none':'flex'};
+  align-items: center;
+  color: #ffffff;
+  list-style-type: none;
+  position: relative;
+  margin: 0;
+  img{
+    width: 50px;
+    height: 40px;
+  }
+`
+const NavMobileBtn = styled.button`
+  display: ${props=>props.mobile ? 'flex':'none'};
+  border: none;
+  outline: none;
+  background-color: #fff;
+  padding: 5px ;
+  border-radius: 5px;
+`
+const NavMobileMenu = styled.div`
+  display: ${props=> props.mobile ? 'block':'none'};
+  background-color: #000;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  right:${props => props.open ? '0':'-100%'};
+  z-index: 1;
+  transition: all .3s ease-in-out;
+`
+const NavClose = styled.div`
+  background-color: #fff;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 20px;
+  right:20px;
+  border-radius: 50%;
+  color: #000;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+  &:hover{
+    cursor: pointer;
+  }
+`
+const NavDropdownbtn = styled.button`
+  padding: 5px 50px;
+  border:1px solid #ccc;
+  border-radius: 5px;
+  color: #000;
+  background-color: #fff;
+  svg{
+    margin-left: 20px;
+  }
+  &:hover{
+    cursor: pointer;
+    box-shadow:0px 0px 3px #ccc;
+
+  }
+`
+const NavDropdown = styled.div`
+  width: 300px;
+  min-height: 300px;
+  overflow: hidden;
+  padding:20px 50px;
+  position: absolute;
+  background-color: #fff;
+  top: 50px;
+  box-shadow: 0px 0px 7px rgba(0,0,0, 0.3);
+  border-radius: 5px;
+  display: ${props => props.open ? 'flex':'none'};
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  a{
+    text-decoration: none;
+    padding: 10px ;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #000;
+    svg{
+      margin-right: 20px;
+    }
+  }
+`
+const NavMobileMenuList = styled.ul`
+  width: 80%;
+  padding: 150px 0px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  margin: 0 auto;
+  a{
+      width: 100%;
+      display: flex;
+      padding: 10px 0px;
+      justify-content: center;
+      margin-bottom: 20px;
+      text-decoration:none;
+      border: 1px solid #ccc;
+      color:#fff;
+      border-radius: 5px;
+      &:hover{
+        color: #000;
+        background-color: #fff;
+      }
+  }
+
+`
 const Navbar = () => {
     const dispatch = useDispatch();
 
@@ -141,6 +250,17 @@ const Navbar = () => {
     const { isLoggedIn, userId, user } = useSelector((state)=> state.auth)
     const [username,setusername]=useState('');
     const [role,setRole]=useState(false);
+    const [menu ,setMenu] = useState(false);
+    const [mobile ,setMobile] = useState(false);
+    const [navdash ,setNavdash] = useState(false);
+    const [dropdown ,setDropdown] = useState(false);
+    let location = useLocation();
+    useEffect(()=>{
+      console.log(location);
+      if(location.pathname == '/dashboard'){
+        setNavdash(true)
+      }
+    },[location])
     useEffect(()=>{
       if(user){
         // setusername(user.)
@@ -151,7 +271,17 @@ const Navbar = () => {
         }
       } 
     },[user])
+    useEffect(()=>{
+      
+      console.log('mobile: ',isMobile);
 
+      if (isMobile){
+        setMobile(true)
+      }else{
+        setMobile(false)
+      }
+        
+    },[isMobile])
     const navRef = useRef()
 
     navRef.current = navBackground
@@ -161,7 +291,8 @@ const Navbar = () => {
       setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-      setAnchorEl(null);
+      // setAnchorEl(null);
+      setDropdown(!dropdown)
     };
 
     const handleScroll = () => {
@@ -191,61 +322,85 @@ const Navbar = () => {
 
   return (
     <>
-     
-    <nav className={`navbar navbar-expand-lg ${ navRef.current }`}>
-      <div className="container">
-      <a class="navbar-brand" href="#">
-        <div className={ navMove ? 'brand tb':'brand'}>
+     <Navcontainer bg={navMove} dash={navdash} mobile={mobile}>
+        <NavLogo to="/" dash={navdash} >
             <img className="navbar_logo" src="/assets/uu81_logo1.png" alt="LOGO"/>
             <h6>UNIQUE UNIPORT81</h6>
-        </div>
-      </a>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <MenuIcon/>
-      </button>
-      <div className="collapse navbar-collapse p-5 d-flex justify-content-end" style={{ zIndex: '1000', background: '#fff'}} id="navbarNavDropdown">
-        <ul className="navbar-nav">
-          {/* <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li> */}
-          {
-                isLoggedIn ? (
+        </NavLogo>
+        <NavMobileBtn mobile={isMobile} onClick={e => setMenu(!menu)}>
+          <MenuIcon/>
+        </NavMobileBtn>
+        <NavMobileMenu mobile={isMobile} open={menu}>
+            <NavClose onClick={e => setMenu(!menu)}>
+              <CloseIcon/>
+            </NavClose>
+            <NavMobileMenuList>
+
+                {
+                  isLoggedIn ? (
+                    <>
+                      { role ? (
+                        <>
+                          {  
+                            AdminMenuList.map((item,index)=>{
+                                    return(
+                                      <Link key={index}  to={item.path} onClick={e => setMenu(!menu)}>
+                                          {item.icon}
+                                          {item.name}
+                                      </Link>
+                                    )
+                            })
+                          }
+                        </>
+                        ):(
+                          <>
+                            {
+                              menuList.map((item,index)=>{
+                                    return(
+                                      <Link key={index}  to={item.path} onClick={e => setMenu(!menu)}>
+                                          {item.icon}
+                                          {item.name}
+                                      </Link>
+                                    )
+                              })
+                            }
+                          </>
+                        )
+                      }
+                      <Link to={'/'} onClick={Handlelogout} >
+                        Logout
+                      </Link>
+                  </>
+                ):(
                   <>
-                  {/* <li class="nav-item">
-                  <button onClick={Handlelogout} className="navbar_btn">
-                    Logout
-                  </button>
-                  </li> */}
-                  <Button
-                      id="demo-customized-button"
-                      aria-controls={open ? 'demo-customized-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      variant="contained"
-                      disableElevation
-                      onClick={handleClick}
-                      endIcon={<KeyboardArrowDownIcon />}
-                    >
-                      {username}
-                  </Button>
-                  <StyledMenu
-                      id="demo-customized-menu"
-                      MenuListProps={{
-                        'aria-labelledby': 'demo-customized-button',
-                      }}
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                    >
+                
+                    <Link to={'/register'} onClick={e => setMenu(!menu)} className="">
+                      Register
+                    </Link>
+                    <Link to={'/login'} onClick={e => setMenu(!menu)} className="">
+                      SignIn
+                    </Link>
+                  </>
+                )
+              }
+
+            </NavMobileMenuList>
+        </NavMobileMenu>
+        <NavMenu mobile={isMobile}>
+          {
+            isLoggedIn ? (
+                  <>
+                    <NavDropdownbtn onClick={e => setDropdown(!dropdown)}>{username} <ExpandMoreIcon/></NavDropdownbtn>
+                    <NavDropdown open={dropdown}>
                       {
                         role ? (
                           <>
                             {AdminMenuList.map((item,index)=>{
                               return(
-                                <MenuItem key={index} component={Link} to={item.path} onClick={handleClose}>
+                                <Link key={index} to={item.path} onClick={handleClose}>
                                     {item.icon}
                                     {item.name}
-                                </MenuItem>
+                                </Link>
                               )
                             })}
                           </>
@@ -253,10 +408,10 @@ const Navbar = () => {
                           <>
                             {menuList.map((item,index)=>{
                               return(
-                                <MenuItem key={index} component={Link} to={item.path} onClick={handleClose}>
+                                <Link key={index} to={item.path} onClick={handleClose}>
                                     {item.icon}
                                     {item.name}
-                                </MenuItem>
+                                </Link>
                               )
                             })}
                           </>
@@ -264,10 +419,10 @@ const Navbar = () => {
                       }
                       
                       <Divider sx={{ my: 0.5 }} />
-                      <MenuItem onClick={Handlelogout} disableRipple>
+                      <Link to={'/'} onClick={Handlelogout} disableRipple>
                           Logout
-                      </MenuItem>
-                  </StyledMenu>
+                      </Link>
+                    </NavDropdown>
                   </>
                 ):(
                   <>
@@ -283,98 +438,10 @@ const Navbar = () => {
                     </li>
                   </>
                 )
-              }
-              
-        </ul>
-      </div>
-      </div>
-    </nav> 
-    
-    {/*
-      <nav style={{ zIndex:'10000' }} className={`navbar navbar-expand-lg ${ navRef.current }`}>
-        <div className="container-fluid d-flex justify-content-around">
-          <div className={ navMove ? 'brand tb':'brand'}>
-            <img className="navbar_logo" src="/assets/uu81_logo1.png" alt="LOGO"/>
-            <h6>UNIQUE UNIPORT81</h6>
-          </div>
-          <div 
-            className="" id="navbarSupportedContent">
-            <form className="d-flex btn-style">
-              {
-                isLoggedIn ? (
-                  <>
-                  <button onClick={Handlelogout} className="navbar_btn ">
-                    Logout
-                  </button>
-                    <Button
-                      id="demo-customized-button"
-                      aria-controls={open ? 'demo-customized-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      variant="contained"
-                      disableElevation
-                      onClick={handleClick}
-                      endIcon={<KeyboardArrowDownIcon />}
-                    >
-                      {username}
-                    </Button>
-                    <StyledMenu
-                      id="demo-customized-menu"
-                      MenuListProps={{
-                        'aria-labelledby': 'demo-customized-button',
-                      }}
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                    >
-                      {
-                        role ? (
-                          <>
-                            {AdminMenuList.map((item,index)=>{
-                              return(
-                                <MenuItem key={index} component={Link} to={item.path} onClick={handleClose}>
-                                    {item.icon}
-                                    {item.name}
-                                </MenuItem>
-                              )
-                            })}
-                          </>
-                        ):( 
-                          <>
-                            {menuList.map((item,index)=>{
-                              return(
-                                <MenuItem key={index} component={Link} to={item.path} onClick={handleClose}>
-                                    {item.icon}
-                                    {item.name}
-                                </MenuItem>
-                              )
-                            })}
-                          </>
-                        )
-                      }
-                      
-                      <Divider sx={{ my: 0.5 }} />
-                      <MenuItem onClick={Handlelogout} disableRipple>
-                          Logout
-                      </MenuItem>
-                    </StyledMenu>
-                  </>
-                ):(
-                  <>
-                    <Link to={'/register'} className={navMove ? 'navbar_btn border':'navbar_btn '}>
-                      Register
-                    </Link>
-                    <Link to={'/login'} className={navMove ? 'navbar_btn border':'navbar_btn '}>
-                      SignIn
-                    </Link>
-                  </>
-                )
-              }
-              
-            </form>
-          </div>
-        </div>
-      </nav> */}
+              } 
+ 
+        </NavMenu>
+     </Navcontainer>
     </>
   )
 }

@@ -25,6 +25,7 @@
     "owl.carousel": "^2.3.4",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
+    "react-device-detect": "^2.2.2",
     "react-dom": "^18.1.0",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^1.3.0",

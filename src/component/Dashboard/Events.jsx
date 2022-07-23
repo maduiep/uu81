@@ -40,6 +40,7 @@ const Events = () => {
     status: event.Event.status, 	
     Action: event.Event.id,
   }));
+
   const columns = [
     { field: 'name', headerName: 'Name', width: 150 },
     { field: 'edition', headerName: 'Edition', width: 80 },
@@ -82,13 +83,13 @@ const Events = () => {
 
   ];
 
-  useEffect(()=>{
-    const payload ={
-      limit:10,
-      skip:0
-    }
-    dispatch(allEvents(payload));
-  },[])
+  // useEffect(()=>{
+  //   const payload ={
+  //     limit:10,
+  //     skip:0
+  //   }
+  //   dispatch(allEvents(payload));
+  // },[])
 
   useEffect(()=>{
     if(events){
@@ -105,7 +106,6 @@ const Events = () => {
   };
 
   const handleDelete = (id) => {
-      // setAnchorEl(null);
       console.log('console: %d',id)
   };
   const handleApprove = (id) => {

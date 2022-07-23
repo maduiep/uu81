@@ -35,9 +35,9 @@ const Event = ({data}) => {
   // }
   return (
    <div className="container">
-     <div className="row min-vh-100">
+     <div className="row">
         <div className="col-lg-3 col-sm-12 ">
-          
+            <div className="row"></div>
         </div>
         
        <div className="col-sm-12 col-lg-6">
@@ -73,11 +73,17 @@ const Event = ({data}) => {
           </div>
        </div>
        <div className="col-lg-3 col-sm-12 mb-5">
+        <div className="row" style={{
+          zIndex:'10'
+        }}>
+
             <Stack justifyContent="center" alignItems="center">
               <Typography variant="h4">Venues</Typography>
             </Stack>
             
-            <List>
+            <List sx={{
+              zIndex:'10',
+            }}>
               <ListItem divider>
                 <Link to='/'>All Venues</Link>
               </ListItem>
@@ -109,7 +115,8 @@ const Event = ({data}) => {
                 <Link to="https://www.instagram.com/yenagoa/" >
                     <TwitterIcon/>
                 </Link>
-              </Stack>
+            </Stack>
+        </div>
        </div>
      </div>
    </div>
