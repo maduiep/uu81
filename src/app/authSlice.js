@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import ls from 'localstorage-slim';
-
-// import axiosPost from '../api/axios';
-// import { axiosPost } from "../api/axios";
 import { axiosGet } from "../api/axios";
 import qs from 'qs';
 import jwt_decode from "jwt-decode";
@@ -11,11 +8,7 @@ import jwt_decode from "jwt-decode";
 
 const url = 'https://uu81.herokuapp.com';
 
-// export const Login = createAsyncThunk('items',async ()=>{
-//     return axios(url)
-//         .then( (response) => response)
-//         .catch( (error) => console.log(error))
-// })
+
 const initialState = { 
     items:[],
     isLoggedIn: false,
@@ -61,12 +54,10 @@ export const Register = createAsyncThunk('register',async (payload)=>{
             baseURL:url,
             method: 'POST',
             headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data'
             },
-            // params: payload,
             data: payload,
-            // data: qs.stringify(payload),
             url:'/users/',
         });
         return response.data;

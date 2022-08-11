@@ -28,6 +28,14 @@ export const allEvents = createAsyncThunk('allEvents', async (payload)=>{
         return console.log(error);
     }
 })
+export const addEvent = createAsyncThunk('addEvents', async (payload)=>{
+    try {
+        const response = await axiosPost('/events/', {data:payload});
+        return response.data;
+    } catch (error) {
+        return console.log(error);
+    }
+})
 
 export const singleEvents = createAsyncThunk('singleEvents', async (payload)=>{
     try {
@@ -40,7 +48,7 @@ export const singleEvents = createAsyncThunk('singleEvents', async (payload)=>{
 
 export const updateEvents = createAsyncThunk('eventUpdate', async (id,payload)=>{ 
     try {
-        const response = await axiosUpdate('/events/' + id, payload);
+        const response = await axiosUpdate(`/events/${id}`, payload);
         return response.data;
     } catch (error) {
         return console.log(error);

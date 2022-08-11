@@ -11,10 +11,11 @@ import {
     Button,
     Container
    } from '@mui/material'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { axiosGet } from '../../../api/axios';
 import { useDispatch,useSelector } from 'react-redux';
 import { bookEvent } from '../../../app/bookingSlice';
+import { toast } from 'react-toastify';
 const Book = () => {
     const dispatch = useDispatch();
     // const { userId, user } = useSelector(state=> state.auth);
@@ -30,23 +31,13 @@ const Book = () => {
     const [booking ,setBooking]= useState(false)
     const [TransactionRef, setTransactionRef] = useState(null)
     const { id } = useParams();
-
+    const navigate =  useNavigate();
     useEffect(()=>{
         if(id !== undefined){
           setBooking(true)
         }
     },[id])
 
-    // const handleBooking = async()=>{
-    //     const payload = {
-    //         event_id: id,
-    //         dir: '1',
-    //         space: '1'
-    //     }
-    //     const response = await axiosGet.post('/bookings',payload);
-
-    //     console.log(response);
-    // }
 
     useEffect(()=>{
         if(TransactionRef !== null){
@@ -55,7 +46,19 @@ const Book = () => {
                 dir: '1',
                 space: '1'
             }
-            dispatch(bookEvent(payload));
+            dispatch(bookEvent(payload)).then((res)=>{
+                if(res.status === "201" ){
+                    toast.success('Booking Successfull')
+                }
+                
+                if(res.status === "409"){
+                    toast.error('User has Booked this Event Already')
+                }
+
+                setTimeout(()=>{
+                    navigate('/dashboard/bookings')
+                },3000)
+            })
         }
     },[id,TransactionRef])
 
@@ -69,8 +72,9 @@ const Book = () => {
                 alert('Window closed.');
             },
             callback: function(response){
-            // let message = 'Payment complete! Reference: ' + response.reference;
-            setTransactionRef(response.reference);
+                // let message = 'Payment complete! Reference: ' + response.reference;
+                toast.success('Payment Successfull')
+                setTransactionRef(response.reference);
             // alert(message);
             }
         });

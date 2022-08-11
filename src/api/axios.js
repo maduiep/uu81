@@ -18,9 +18,10 @@ export const axiosPost  = axios.create({
     method: 'POST',
     baseURL : BASE_URL,
     headers: {
-        'accept': 'application/json',
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data'
     },
-    timeout: 10000, // Request timeout
+    // timeout: 10000, // Request timeout
 });
 
 export const axiosUpdate  = axios.create({
@@ -30,7 +31,7 @@ export const axiosUpdate  = axios.create({
         'accept' : 'application/json',
         'Content-Type' : 'multipart/form-data',
     },
-    withCredentials: false,
+    // withCredentials: false,
     timeout: 10000, // Request timeout
 });
 

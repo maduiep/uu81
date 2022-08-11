@@ -63,38 +63,42 @@ function App() {
       
     return ( 
         <>
-        <Helmet>
-          <script src="https://js.paystack.co/v1/inline.js" async></script> 
-        </Helmet>
-        <Routes>
-            <Route path = "/" element = { < Layout /> } >
-                <Route path = "/" element = { < Home /> }/> 
-                <Route path = "/event/:id" element = { < SingleEvent /> } /> 
-                <Route element = { <ProtectedRoutes/> } > 
-                    < Route path = "book/:id" element = { < Book /> } /> 
-                </Route>
-            </Route>
+        <React.StrictMode>
 
-            <Route path = "/" element = { < AuthLayout /> } >
-                <Route path = "register" element = { < Register /> }/> 
-                <Route path = "forget" element = { <ForgetPassword /> }/> 
-                <Route path = "login" element = { < Login /> }/> 
-            </Route>
+        
+          <Helmet>
+            <script src="https://js.paystack.co/v1/inline.js" async></script> 
+          </Helmet>
+          <Routes>
+              <Route path = "/" element = { < Layout /> } >
+                  <Route path = "/" element = { < Home /> }/> 
+                  <Route path = "/event/:id" element = { < SingleEvent /> } /> 
+                  <Route element = { <ProtectedRoutes/> } > 
+                      < Route path = "book/:id" element = { < Book /> } /> 
+                  </Route>
+              </Route>
 
-            <Route element = { <ProtectedRoutes/> } > 
-                {/* < Route path = "book/:id" element = { < Book /> } />  */}
-                < Route path = 'dashboard' element = { < DashLayout /> }> 
-                    < Route path = "/dashboard" element = { < DashHome /> } /> 
-                    < Route path = "events" element = { < Events /> } /> 
-                    < Route path = "finance" element = { < Finance /> } /> 
-                    < Route path = "users" element = { < Users /> } /> 
-                    < Route path = "bookings" element = { < Bookings /> } /> 
-                    < Route path = "payments" element = { < Payments /> } /> 
-                    < Route path = "profile" element = { < Profile /> } /> 
-                    < Route path = "password" element = { < ChangePwd /> } /> 
-                </Route > 
-            </Route> 
-        </Routes>
+              <Route path = "/" element = { < AuthLayout /> } >
+                  <Route path = "register" element = { < Register /> }/> 
+                  <Route path = "forget" element = { <ForgetPassword /> }/> 
+                  <Route path = "login" element = { < Login /> }/> 
+              </Route>
+
+              <Route element = { <ProtectedRoutes/> } > 
+                  {/* < Route path = "book/:id" element = { < Book /> } />  */}
+                  < Route path = 'dashboard' element = { < DashLayout /> }> 
+                      < Route path = "/dashboard" element = { < DashHome /> } /> 
+                      < Route path = "events" element = { < Events /> } /> 
+                      < Route path = "finance" element = { < Finance /> } /> 
+                      < Route path = "users" element = { < Users /> } /> 
+                      < Route path = "bookings" element = { < Bookings /> } /> 
+                      < Route path = "payments" element = { < Payments /> } /> 
+                      < Route path = "profile" element = { < Profile /> } /> 
+                      < Route path = "password" element = { < ChangePwd /> } /> 
+                  </Route > 
+              </Route> 
+          </Routes>
+        </React.StrictMode>
     </>
     );
 }

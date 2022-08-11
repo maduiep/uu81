@@ -11,7 +11,7 @@ import { Box, Grid } from '@mui/material';
 
 const Login = () => {
 
-    const [username,setusername] = useState('babajide2341@gmail.com');
+    const [username,setusername] = useState('babajide234@gmail.com');
     const [password,setpassword] = useState('123456');
     const { isLoggedIn } = useSelector((state)=> state.auth)
 

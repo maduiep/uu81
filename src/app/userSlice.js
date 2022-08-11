@@ -22,7 +22,7 @@ export const getMyEvents = createAsyncThunk('events', async (payload)=>{
 })
 export const allUsers = createAsyncThunk('allEvents', async (payload)=>{
     try {
-        const response = await axiosGet.get('/users/', payload);
+        const response = await axiosGet.get('/users/all', payload);
         return response.data;
     } catch (error) {
         return console.log(error);
@@ -56,9 +56,9 @@ export const createEvents = createAsyncThunk('newEvents', async (payload)=>{
     }
 })
 
-export const deleteEvents = createAsyncThunk('delelteEvents', async (id)=>{
+export const deleteUsers = createAsyncThunk('delelteEvents', async (id)=>{
     try {
-        const response = await axiosDelete('/events/'+id);
+        const response = await axiosDelete('/users/'+id);
         return response.data;
     } catch (error) {
         return console.log(error);

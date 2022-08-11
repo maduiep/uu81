@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { axiosGet } from '../../api/axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { allEvents } from '../../app/eventSlice';
@@ -8,46 +8,86 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
 import Chip from '@mui/material/Chip';
 
 import Modal from '@mui/material/Modal';
 
 import { Link } from 'react-router-dom';
-// import {  } from '@mui/material/Button';
 import AddEvent from './AddEvent';
 import { DataGrid } from "@mui/x-data-grid";
 import { updateEvents } from "../../app/eventSlice";
+import { deleteEvents } from './../../app/eventSlice';
 
 const Events = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+
   const dispatch = useDispatch();
   const { events } = useSelector(state => state.event)
 
-  const [event, setEvents] = useState()
+  // const [rows, setRows] = useState()
 
   const [openModal, setOpenModal] = useState(false);
   const handleModalOpen = () => setOpenModal(true);
   const handleModalClose = () => setOpenModal(false);
-  const rows = events.map(event => ({
-    id: event.Event.id,
-    name: event.Event.title,
-    edition: event.Event.space_allowed, 	
-    type: event.Event.type,
-    spacesAllowed: event.Event.space_allowed, 	
-    spacesLeft: event.Event.space_allowed, 	
-    cost: event.Event.cost, 	
-    status: event.Event.status, 	
-    Action: event.Event.id,
+
+  useEffect(()=>{
+    getEvents();
+  },[]) 
+  
+  const getEvents = ()=>{
+    const payload ={
+      limit:10,
+      skip:0
+    }
+    dispatch(allEvents(payload));
+  }
+  // const getRows = () => {
+    
+  //   setRows(rowss);
+  //   console.log("Rows: ", rowss);
+  // }
+  const rows = events?.map(event => ({
+    name: event.Event?.title,
+    id: event.Event?.id,
+    edition: event.Event?.space_allowed, 	
+    type: event.Event?.type,
+    spacesAllowed: event.Event?.space_allowed, 	
+    spacesLeft: event.Event?.space_allowed, 	
+    cost: event.Event?.cost, 	
+    status: event.Event?.status, 	
+    Action: event.Event?.id,
   }));
+  
+  // useEffect(()=>{
+  //   if(events){
+  //     getRows();
+  //   }
+  // },[events])
+
 
   const columns = [
     { field: 'name', headerName: 'Name', width: 150 },
     { field: 'edition', headerName: 'Edition', width: 80 },
     { field: 'type', headerName: 'Type', width: 50 },
-    { field: 'spacesAllowed', headerName: 'Spaces Allowed', width: 150, renderCell: (rowData) => <><Typography>{rowData.value}</Typography> <Chip label={rowData.value +' Spaces Taken'} size="small" color="success" /></> },
+    { 
+      field: 'spacesAllowed', 
+      headerName: 'Spaces Allowed', 
+      width: 150, 
+      renderCell: (rowData) => {
+      return(
+      <>
+        <Typography>{rowData.value}</Typography> 
+        <Chip label={rowData.value +' Spaces Taken'} size="small" color="success" />
+      </>
+      )}
+    },
     { field: 'spacesLeft', headerName: 'Spaces Left', width: 90 },
-    { field: 'cost', headerName: 'Cost', width: 70, renderCell: (rowData) => <><Typography>{'₦ ' + rowData.value}</Typography></> },
+    { 
+      field: 'cost', 
+      headerName: 'Cost', 
+      width: 70, 
+      renderCell: (rowData) => <><Typography>{'₦ ' + rowData.value}</Typography></> },
     { 
       field: 'status', 
       headerName: 'Status', 
@@ -58,7 +98,7 @@ const Events = () => {
             label={rowData.value ? 'Approved' : 'Not Approved'} 
             size="small" color={rowData.value ? "success":"error"} 
             variant="outlined" 
-            onClick={(e,row)=>handleApprove(rowData.id)}
+            // onClick={(e,row)=>handleApprove(rowData.id)}
           />
         )
       }  
@@ -68,13 +108,15 @@ const Events = () => {
       headerName: 'Action', 
       width: 150 , 
       renderCell: (params) => {
-        const id = params.value;
       return(
         <>
-          <IconButton aria-label="delete" onClick={() => handleApprove(id)}>
-            <EditIcon />
+          <IconButton aria-label="delete" onClick={()=>handleApprove(params.value)}>
+            <CheckIcon />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => handleDelete(id)}>
+          {/* <IconButton aria-label="delete" onClick={()=>handleApprove(params.value)}>
+            <EditIcon />
+          </IconButton> */}
+          <IconButton aria-label="delete" onClick={()=>handleDelete(params.value)}>
             <DeleteIcon />
           </IconButton>
         </>
@@ -82,20 +124,6 @@ const Events = () => {
   },
 
   ];
-
-  // useEffect(()=>{
-  //   const payload ={
-  //     limit:10,
-  //     skip:0
-  //   }
-  //   dispatch(allEvents(payload));
-  // },[])
-
-  useEffect(()=>{
-    if(events){
-      console.log("Events: ", events);
-    }
-  },[events])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -107,17 +135,18 @@ const Events = () => {
 
   const handleDelete = (id) => {
       console.log('console: %d',id)
+      dispatch(deleteEvents(id))
   };
+
   const handleApprove = (id) => {
-      // setAnchorEl(null);
-      // e.preventDefault();
-      // console.log(e)
-      const payload = {
-        status: true,
-      }
-      dispatch(updateEvents(id,payload))
+      const data = new FormData();
+      data.append('status', true);
+
+      dispatch(updateEvents(id,data))
       console.log('console: %d',id)
+      
   }
+  
   const style = {
     position: 'absolute',
     top: '50%',
@@ -143,23 +172,21 @@ const Events = () => {
           </Grid>
         </Grid>
         <Modal
-        open={openModal}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+          open={openModal}
+          onClose={handleModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
         <Box sx={style}>
-          <AddEvent/>
+          <AddEvent close={handleModalClose} reload={getEvents}/>
         </Box>
       </Modal>
         {
           events && (
             <DataGrid 
-            autoHeight 
-            disableSelectionOnClick
-            autoPageSize
-            rows={rows} 
-            columns={columns} 
+              rows={rows}
+              columns={columns}
+              autoHeight
             />
           )
         }

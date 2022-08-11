@@ -13,45 +13,35 @@ import Chip from '@mui/material/Chip';
 import Modal from '@mui/material/Modal';
 
 import { Link } from 'react-router-dom';
-import { allUsers } from '../../app/userSlice';
+import { allUsers, deleteUsers } from '../../app/userSlice';
+import { DataGrid } from '@mui/x-data-grid';
+import swal from 'sweetalert';
+
 const Users = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   const { users } = useSelector(state => state.user)
 
-  const [user, setEvents] = useState()
+  // const [user, setEvents] = useState()
 
-  const [openModal, setOpenModal] = useState(false);
-  const handleModalOpen = () => setOpenModal(true);
-  const handleModalClose = () => setOpenModal(false);
+  // const [openModal, setOpenModal] = useState(false);
+  // const handleModalOpen = () => setOpenModal(true);
+  // const handleModalClose = () => setOpenModal(false);
 
   useEffect(()=>{
-    const payload ={
+    const payload = {
       limit:10,
       skip:0
     }
     dispatch(allUsers(payload));
-  },[])
+  },[dispatch])
 
   useEffect(()=>{
-    if(user){
+    if(users){
       console.log("Events: ", users);
     }
   },[users])
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-      setAnchorEl(null);
-  };
-
-  const handledelete = (id) => {
-      // setAnchorEl(null);
-      console.log('console: %d',id)
-  };
  
   const style = {
     position: 'absolute',
@@ -63,94 +53,103 @@ const Users = () => {
     // border: '2px solid #000',
     boxShadow: 24,
   };
+
+  const rows = users?.map(user => ({
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      phone: user.phone_number,
+      admin: user.admin,
+      status: user.is_host,
+      created_at: user.created_at,
+      actions: user.id,
+  }));
+
+  const columns = [
+    { field: 'first_name', headerName: 'First Name', width: 150 },
+    { field: 'last_name', headerName: 'Last Name', width: 150 },
+    { field: 'email', headerName: 'Email', width: 180 },
+    { field: 'phone', headerName: 'Phone', width: 100 },
+    { 
+      field: 'admin', 
+      headerName: 'Role', 
+      width: 150, 
+      renderCell: (rowData) => {
+        return (
+          <Chip 
+            label={rowData.value ? "Admin":"Not Admin"} 
+            size="small" 
+            color={rowData.value ? "success":"error"} 
+            variant="outlined" 
+          />
+        )
+      },
+    },
+    { 
+      field: 'status', 
+      headerName: 'Is Host', 
+      width: 100,
+      renderCell: (rowData) => {
+        return (
+          <Chip 
+            label={rowData.value ? "Host":"Not Host"} 
+            size="small" 
+            color={rowData.value ? "success":"error"} 
+            variant="outlined" 
+          />
+        )
+      }, 
+    },
+    { field: 'created_at', headerName: 'Created At', width: 150 },
+    { 
+      field: 'actions', 
+      headerName: 'Actions', 
+      width: 100,
+      renderCell: (params) => {
+        return(
+          <>
+            {/* <IconButton aria-label="delete" onClick={()=>handleApprove(params.value)}>
+              <EditIcon />
+            </IconButton> */}
+            <IconButton aria-label="delete" onClick={()=>handleDelete(params.value)}>
+              <DeleteIcon />
+            </IconButton>
+          </>
+        )
+    }
+    },
+  ];
+
+  const handleDelete = (id) => {
+    console.log('console: %d',id)
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("User! has been deleted!", {
+          icon: "success",
+        });
+        dispatch(deleteUsers(id))
+      } else {
+        swal("User Not Deleted!");
+      }
+    });
+  }
   return (
     <>
       {
           users && (
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Event Name</TableCell>
-                    <TableCell>Edition</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Spaces Allowed</TableCell>
-                    <TableCell>Spaces Left</TableCell>
-                    <TableCell>Cost</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Action</TableCell>
-                    {/* <TableCell>Title</TableCell>
-                    <TableCell align="center">Space Allowed</TableCell>
-                    <TableCell align="center">Action</TableCell> */}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  { users?.map((row) => (
-                    <TableRow key={row.Event.title} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell align="center"></TableCell>
-                      <TableCell component="th" scope="row">
-                        <Link to={'/'}>{row.Event.title}</Link>
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Event.space_allowed}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Event.space_allowed}
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography>
-                          {row.Event.space_allowed}
-                        </Typography>
-                        <Chip label={row.Event.space_available +' Spaces Taken'} size="small" color="success" />
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Event.space_available}
-                      </TableCell>
-                      <TableCell align="center">
-                        {'₦ ' + row.Event.cost}
-
-                      </TableCell>
-                      <TableCell align="center">
-                        <Chip label={row.Event.status ? 'Approved' : 'Not Approved'} size="small" color={row.Event.status ? "success":"error"} variant="outlined" />
-                      </TableCell>
-                      <TableCell align="center">
-                        <IconButton
-                            onClick={handleClick}
-                            aria-controls={open ? 'amenu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                        >
-                            <MoreVertIcon/>
-                        </IconButton>
-                        <Menu
-                            anchorEl={anchorEl}
-                            id="amenu"
-                            open={open}
-                            onClose={handleClose}
-                            onClick={handleClose}
-                        >
-                            <MenuItem>
-                              <Typography color='danger'>Approve</Typography>
-                            </MenuItem>
-                            <MenuItem>
-                              <Typography color='danger'>Unaprove</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={handledelete(row.Event.id)} divider={true} sx={{ color:'red', }}> 
-                              <ListItemIcon>
-                                <DeleteIcon sx={{color:'red'}}/>
-                              </ListItemIcon>
-                              <Typography color='danger'>Delete</Typography>
-                            </MenuItem>
-                            {/* <MenuItem> <ListItemIcon><EditIcon sx={{color:'blue'}}/></ListItemIcon><Typography color='blue'>Edit</Typography></MenuItem> */}
-                        </Menu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            
+            <DataGrid 
+              rows={rows}
+              columns={columns}
+              autoHeight
+            /> 
           )
         }
         {

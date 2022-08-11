@@ -247,7 +247,7 @@ const Navbar = () => {
     const [navMove, setNavMove] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const { isLoggedIn, userId, user } = useSelector((state)=> state.auth)
+    const { isLoggedIn, user } = useSelector((state)=> state.auth)
     const [username,setusername]=useState('');
     const [role,setRole]=useState(false);
     const [menu ,setMenu] = useState(false);
@@ -255,12 +255,14 @@ const Navbar = () => {
     const [navdash ,setNavdash] = useState(false);
     const [dropdown ,setDropdown] = useState(false);
     let location = useLocation();
+
     useEffect(()=>{
       console.log(location);
-      if(location.pathname == '/dashboard'){
+      if(location.pathname === '/dashboard'){
         setNavdash(true)
       }
     },[location])
+
     useEffect(()=>{
       if(user){
         // setusername(user.)
@@ -271,6 +273,7 @@ const Navbar = () => {
         }
       } 
     },[user])
+
     useEffect(()=>{
       
       console.log('mobile: ',isMobile);
@@ -281,17 +284,13 @@ const Navbar = () => {
         setMobile(false)
       }
         
-    },[isMobile])
+    },[])
+
     const navRef = useRef()
 
     navRef.current = navBackground
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
+    
     const handleClose = () => {
-      // setAnchorEl(null);
       setDropdown(!dropdown)
     };
 
@@ -307,8 +306,8 @@ const Navbar = () => {
           setNavMove(false)
       }
     }
+
     const Handlelogout = ()=>{
-      setAnchorEl(null);
       dispatch(logout());
     }
 
@@ -419,7 +418,7 @@ const Navbar = () => {
                       }
                       
                       <Divider sx={{ my: 0.5 }} />
-                      <Link to={'/'} onClick={Handlelogout} disableRipple>
+                      <Link to={'/'} onClick={Handlelogout}>
                           Logout
                       </Link>
                     </NavDropdown>
@@ -438,7 +437,7 @@ const Navbar = () => {
                     </li>
                   </>
                 )
-              } 
+          } 
  
         </NavMenu>
      </Navcontainer>
