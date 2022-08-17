@@ -39,11 +39,14 @@ const Register = () => {
       admin: false,
       is_host: false
     }
+    
     console.log(payload);
-    dispatch(Reg(payload)).then(()=>{
+    dispatch(Reg(payload)).then((res)=>{
       setLoading(false);
+      console.log(res.response.status);
       toast.success('User registered Successfully')
-    }).catch(()=>{
+    }).catch((err)=>{
+      console.log('err', err.response.status);
       setLoading(false);
     });
   }
@@ -164,15 +167,6 @@ const Register = () => {
                           </Grid>
                         </Grid>
                       </Grid>
-                        {/* &nbsp;
-                          <small id="emailHelp" class="form-text text-muted color">Already have an account?</small>
-                          {/* <button type="submit" className="btn btn-primary mt-4 mb-4">Submit</button> 
-                        */}
-                        {/*
-                          <LoadingButton loading={loading}  variant="contained" disabled={disabled}>
-                          Submit
-                          </LoadingButton> 
-                        */}
                     </form>
                 )}
             </Formik>

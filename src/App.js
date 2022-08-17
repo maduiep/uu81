@@ -36,7 +36,8 @@ function App() {
     const { isLoggedIn } = useSelector((state)=> state.auth)
     
     ls.config.encrypt = true;
-    
+    // ls.config.secret = 'UU81SECRETKEY234';
+
 
     // useEffect(()=>{
             // console.log(ls.get('token').isloggedin);
@@ -81,6 +82,7 @@ function App() {
               <Route path = "/" element = { < AuthLayout /> } >
                   <Route path = "register" element = { < Register /> }/> 
                   <Route path = "forget" element = { <ForgetPassword /> }/> 
+                  <Route path = "change_password" element = { <ForgetPassword /> }/>
                   <Route path = "login" element = { < Login /> }/> 
               </Route>
 

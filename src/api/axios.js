@@ -9,7 +9,7 @@ export const axiosGet  = axios.create({
     baseURL : BASE_URL,
     headers: {
         'accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json',
     },
     withCredentials: false,
 });
@@ -51,6 +51,10 @@ axiosGet.interceptors.request.use(
         if(ls.get('token')){
             const accessToken = ls.get('token').token    
             config.headers.common['Authorization'] = 'Bearer ' + accessToken;
+        } else {
+            if(ls.get('reset')){
+                config.headers.common['Authorization'] = 'Bearer ' + ls.get('reset').token
+            }
         }
         return config;
     },

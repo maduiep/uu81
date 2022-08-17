@@ -2,8 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
+  font-size: 14px;
 }
+@media screen and (max-width: 768px) {
+  *{
+    font-size: 12px;
+  }
+}
+  
 .main {
     background-image: url('/public/assets/cover-5.jpg');
     background-size: cover;
@@ -62,13 +68,18 @@
 }
 
 .header {
+    
     color: #fff;
     height: 30rem;
 }
-
+.header-main{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .header-main-text {
-    margin-top: 4rem;
-    text-align: center;
+
 }
 
 .btn-style {

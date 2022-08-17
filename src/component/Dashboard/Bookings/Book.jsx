@@ -13,6 +13,8 @@ import {
    } from '@mui/material'
 import { useParams, useNavigate } from 'react-router-dom';
 import { axiosGet } from '../../../api/axios';
+// import { GetUser } from '../../app/authSlice';
+import  { GetUser } from '../../../app/authSlice';
 import { useDispatch,useSelector } from 'react-redux';
 import { bookEvent } from '../../../app/bookingSlice';
 import { toast } from 'react-toastify';
@@ -31,7 +33,30 @@ const Book = () => {
     const [booking ,setBooking]= useState(false)
     const [TransactionRef, setTransactionRef] = useState(null)
     const { id } = useParams();
+    
+    const { userId, user } = useSelector(state => state.auth); 
     const navigate =  useNavigate();
+
+    useEffect(()=>{
+        if(userId !== undefined){
+          dispatch(GetUser(userId));  
+        }else{
+          console.log('not logged in')
+        }
+      },[dispatch, userId])
+
+      useEffect(()=>{
+        if(user){
+          // setusername(user.)
+          console.log('this guy ->',user);
+            setuserEmail(user.email);
+            setuserFirstName(user.first_name);
+            setuserLastName(user.last_name);
+            setuserPhone(`234${user.phone_number}`);
+            // setuserRole(user.role);
+
+        } 
+      },[user])
     useEffect(()=>{
         if(id !== undefined){
           setBooking(true)
@@ -165,19 +190,18 @@ const Book = () => {
                         </FormControl>
                         </Grid>
                         <Grid item xs={6}>
-                        <FormControl fullWidth size="small">
-                            <InputLabel id="demo-simple-select-label">Spaces</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                        
+                            <TextField
+                                type="number"
+                                size="small"
+                                fullWidth   
+                                placeholder="Spaces"
+                                id="outlined-basic"
                                 label="Spaces"
+                                variant="outlined"
+                                value={ space }
                                 onChange={e => setspace(e.target.value)}
-                            >
-                                <MenuItem value={1}>1</MenuItem>
-                                <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
-                            </Select>
-                            </FormControl>
+                            />
                         </Grid>
                     </Grid>
                     

@@ -8,11 +8,14 @@ import { Box, Grid } from '@mui/material';
 
 // import axios from 'axios';
 // import qs from 'qs';
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
-    const [username,setusername] = useState('babajide234@gmail.com');
-    const [password,setpassword] = useState('123456');
+    const [username,setusername] = useState('');
+    const [password,setpassword] = useState('');
+    // const [username,setusername] = useState('babajide234@gmail.com');
+    // const [password,setpassword] = useState('123456');
     const { isLoggedIn } = useSelector((state)=> state.auth)
 
     const dispatch = useDispatch()
@@ -31,7 +34,14 @@ const Login = () => {
             password
         }
 
-        dispatch(LoginRequest(payload));
+        dispatch(LoginRequest(payload))
+        // .then((res)=>{
+        //     console.log(res.response.status);
+        //     toast.success('User registered Successfully')
+        // }).catch((err)=>{
+        //       toast.error('Invalid Credentials')
+        //     console.log('err', err);
+        //   });
     }
 
     const handleEmail = (e)=>{

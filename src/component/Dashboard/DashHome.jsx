@@ -26,8 +26,8 @@ const DashHome = () => {
   },[user])
 
   useEffect(()=>{
-    const storage = ls.get('token');
-    console.log('storage', storage);
+    // const storage = ls.get('token');
+    // console.log('storage', storage);
   },[])
   
   return (
