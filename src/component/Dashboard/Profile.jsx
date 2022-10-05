@@ -50,7 +50,7 @@ const Profile = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={userRole}
+            value={userRole  || ''}
             label="Age"
             onChange={e => setuserRole(e.target.value)}
             disabled
@@ -71,7 +71,7 @@ const Profile = () => {
                 id="outlined-basic" 
                 label="Email" 
                 variant="outlined" 
-                value={userEmail}
+                value={userEmail  || ''}
                 onChange={ e=> setuserEmail(e.target.value)}
               />
           </Grid>
@@ -98,7 +98,7 @@ const Profile = () => {
                 id="outlined-basic" 
                 label="First Name" 
                 variant="outlined" 
-                value={ userFirstName }
+                value={ userFirstName  || '' }
                 onChange={ e => setuserFirstName(e.target.value)}
               />
           </Grid>
@@ -111,7 +111,7 @@ const Profile = () => {
                 id="outlined-basic" 
                 label="Last Name" 
                 variant="outlined" 
-                value={ userLastName }
+                value={ userLastName  || '' }
                 onChange={ e => setuserLastName(e.target.value) }
               />
           </Grid>
@@ -129,7 +129,7 @@ const Profile = () => {
                 id="outlined-basic" 
                 label="Phone Number" 
                 variant="outlined" 
-                value={ userPhone }
+                value={ userPhone  || '' }
                 onChange={ e => setuserPhone(e.target.value)}
               />
           </Grid>

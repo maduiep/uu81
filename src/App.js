@@ -43,6 +43,18 @@ function App() {
             // console.log(ls.get('token').isloggedin);
         //   console.log(ls.get('token').token);
     // },[])
+    
+    
+    // useEffect(()=>{
+    //   if(searchResult.lenght > 0){
+    //     const data = [];
+    //     searchResult.map((item)=>(
+    //       data.push(item)
+    //     ));
+    //     saveSearchResult(data)
+    //   }
+    // },[searchResult])
+
 
     useEffect(()=>{
         if(ls.get('token') !== null){
@@ -82,7 +94,7 @@ function App() {
               <Route path = "/" element = { < AuthLayout /> } >
                   <Route path = "register" element = { < Register /> }/> 
                   <Route path = "forget" element = { <ForgetPassword /> }/> 
-                  <Route path = "change_password" element = { <ForgetPassword /> }/>
+                  <Route path = "change_password/:req_token" element = { <ForgetPassword /> }/>
                   <Route path = "login" element = { < Login /> }/> 
               </Route>
 

@@ -9,10 +9,11 @@ import {
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { axiosGet } from './../../api/axios';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import ls from 'localstorage-slim';
 import ChangePwd from '../Dashboard/ChangePwd';
 import LoadingButton from '@mui/lab/LoadingButton';
+
 const ForgetPassword = () => {
   const [email, setemail] = React.useState(null);
   const [loading, setloading] = React.useState(false);
@@ -25,8 +26,13 @@ const ForgetPassword = () => {
   const [disable, setDisable] = React.useState(true);
 
   const handleEmail = (e) => setemail(e.target.value);
-  const params = useParams();
+  
+  const { req_token } = useParams();
+  let [searchParams, setSearchParams] = useSearchParams();
+
+
   const navigate = useNavigate();
+
   useEffect(()=>{
     if(newPassword.length >= 5 && confirmNewPassword.length >= 5){
         setDisable(false)
@@ -43,13 +49,16 @@ const ForgetPassword = () => {
 
   useEffect(() => {
     
-    // console.log(ls.get('reset'));
-    const token = ls.get('reset');
-    console.log(token);
-    if (token?.resetEmail) {
-      setToken(token);
+    // const token = ls.get('reset');
+
+    const token_ = window.location.search;
+    console.log( token_.split('=')[1]);
+    setToken(token_.split('=')[1]);
+    if (req_token) {
+      setToken(req_token);
       setTokenSet(true);
     }
+
   } , []);
 
   const handleSubmit = async()=>{
@@ -87,24 +96,42 @@ const ForgetPassword = () => {
         confirm_password: confirmNewPassword
     }
 
-    const response = await axiosGet.post('/reset_password/UU81',payload);
-    if(response.status === 200 ){
-      setloading(false);
-      console.log(response.data);    
-      ls.remove('reset');
-      setTokenSet(false);
-      setresetEmail(false);
-      setNewPassword('');
-      setConfirmNewPassword('');
-      setDisable(true);
-      toast.success('Password has been changed');
-      setTimeout(() => {
-        navigate('/login');
-      }, 1000);
-    }else{
-      setloading(false);
-    }
+    const response = axios({
+        url:'/reset_password/UU81',
+        method:'post',
+        baseURL: 'https://uu81.herokuapp.com',
+        headers:{
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.location.search.split('=')[1] 
+        },
+        data: payload,
+      });
+      response.then((res)=>{
+        console.log(res);
+        if(res.status === 200 ){
+          setloading(false);
+          console.log(response.data);    
+          ls.remove('reset');
+          setTokenSet(false);
+          setresetEmail(false);
+          setNewPassword('');
+          setConfirmNewPassword('');
+          setDisable(true);
+          toast.success('Password has been changed');
+          setTimeout(() => {
+            navigate('/login');
+          }, 1000);
+        }else{
+          setloading(false);
+        }
+      }).catch(err=>{
+        console.log(err);
+        setloading(false)
+      })
   }
+
+
   return (
     
 
